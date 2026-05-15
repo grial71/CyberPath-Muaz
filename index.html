@@ -392,8 +392,6 @@
     @media(max-width:640px){.topbar{position:relative}.panel{padding:18px;border-radius:22px}.dashboard{grid-template-columns:1fr 1fr}.network-map{grid-template-columns:1fr}button,.btn{width:100%}nav button{width:auto}header{padding-top:34px}.prompt{display:none}}
   </style>
 
-  <!-- ✅ Navigation de secours placée dans le HEAD
-       Elle garantit que les boutons principaux fonctionnent même si un script plus bas se bloque. -->
   <script>
     function showPanel(id, btn) {
       document.querySelectorAll('.panel').forEach(function(panel) {
@@ -441,7 +439,7 @@
   <header>
     <div class="badge">🛡️ SOC & Incident Analysis Lab · Linux First · Python Automation · Cisco Network</div>
     <h1><span class="gradient">CyberPath</span><br>Muaz V6</h1>
-    <p class="hero-text" data-fr="Mini-plateforme bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité défensive. Objectif : transformer une expérience réseau solide en trajectoire SOC / Blue Team." data-en="Bilingual French/English mini-platform to strengthen Linux, Python, Cisco networking and defensive cybersecurity. Goal: turn strong network experience into a SOC / Blue Team path.">Mini-plateforme bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité défensive. Objectif : transformer une expérience réseau solide en trajectoire SOC / Blue Team.</p>
+    <p class="hero-text" id="mainHeroText" data-fr="Mini-plateforme bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité défensive. Objectif : transformer une expérience réseau solide en trajectoire SOC / Blue Team." data-en="Bilingual French/English mini-platform to strengthen Linux, Python, Cisco networking and defensive cybersecurity. Goal: turn strong network experience into a SOC / Blue Team path.">Mini-plateforme bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité défensive. Objectif : transformer une expérience réseau solide en trajectoire SOC / Blue Team.</p>
     <div class="hero-actions">
       <button class="primary" onclick="showPanelById('soc')">Open SOC Dashboard</button>
       <button class="cyan" onclick="showPanelById('terminal')">Open Terminal</button>
@@ -477,6 +475,7 @@
       <button onclick="showPanel('roadmap',this)">🧭 Roadmap</button>
     </nav>
 
+    <!-- ACCUEIL -->
     <section id="home" class="panel active">
       <h2 class="title">🚀 CyberPath-Muaz V6 Fixed</h2>
       <p class="subtitle" data-fr="Cette version est corrigée : les boutons fonctionnent, les chaînes JavaScript multilignes sont sécurisées avec des retours à la ligne valides." data-en="This version is fixed: buttons work, multiline JavaScript strings are secured with valid line breaks.">Cette version est corrigée : les boutons fonctionnent, les chaînes JavaScript multilignes sont sécurisées avec des retours à la ligne valides.</p>
@@ -490,6 +489,7 @@
       </div>
     </section>
 
+    <!-- SOC -->
     <section id="soc" class="panel">
       <h2 class="title">📊 SOC Dashboard Live</h2>
       <p class="subtitle">Simulation visuelle type centre de supervision cyber : alertes, trafic, niveau menace et activité système.</p>
@@ -514,24 +514,31 @@
       </div>
     </section>
 
+    <!-- LINUX -->
     <section id="linux" class="panel">
       <h2 class="title">🐧 Linux Mission Lab</h2>
       <p class="subtitle">Missions Linux corrigées automatiquement : navigation, logs, réseau et permissions.</p>
       <div class="split">
         <div class="labbox">
-          <div class="question-meta"><span class="tag">Linux Mission</span><strong id="missionCounter">1 / 5</strong></div>
-          <h3 class="question-title" id="missionTitle"></h3>
-          <p class="translation" id="missionObjective"></p>
+          <div class="question-meta"><span class="tag">Linux Mission</span><strong id="missionCounter">1 / 3</strong></div>
+          <h3 class="question-title" id="missionTitle">Mission Linux</h3>
+          <p class="translation" id="missionObjective">Objectif</p>
           <input type="text" id="missionAnswer" placeholder="Tape la commande Linux ici...">
           <br><br>
           <button class="primary" onclick="validateMission()">Validate Mission</button>
           <button class="cyan" onclick="nextMission()">Next Mission</button>
           <div id="missionFeedback" class="feedback"></div>
         </div>
-        <div id="linuxQuiz" class="quiz"></div>
+        <div id="linuxQuiz" class="quiz">
+          <h3>Question d'architecture Linux</h3>
+          <p id="linuxQuizQuestion"></p>
+          <div id="linuxQuizOptions"></div>
+          <div id="linuxQuizFeedback" class="feedback"></div>
+        </div>
       </div>
     </section>
 
+    <!-- TERMINAL -->
     <section id="terminal" class="panel">
       <h2 class="title">💻 Advanced Linux Terminal Simulator</h2>
       <p class="subtitle">Terminal simulé sans risque. Commandes : help, pwd, ls, cd, cat, grep, tail, chmod, whoami, ip addr, ping, systemctl, sudo, clear.</p>
@@ -547,27 +554,43 @@ Mission: ls → cd logs → ls → tail auth.log → grep Failed auth.log</div>
       </div>
     </section>
 
-    <section id="network" class="panel"><h2 class="title">🌐 Cisco / Network Engineering Lab</h2><p class="subtitle">Réseau : DNS, DHCP, VLAN, firewall, VPN, IP et diagnostic.</p><div id="networkQuiz" class="quiz"></div></section>
+    <!-- NETWORKING / CISCO -->
+    <section id="network" class="panel">
+      <h2 class="title">🌐 Cisco / Network Engineering Lab</h2>
+      <p class="subtitle">Réseau : DNS, DHCP, VLAN, firewall, VPN, IP et diagnostic.</p>
+      <div id="networkQuiz" class="quiz"></div>
+    </section>
 
+    <!-- PYTHON -->
     <section id="python" class="panel">
       <h2 class="title">🐍 Python Security Automation Lab</h2>
       <p class="subtitle">Python pour automatiser, analyser des logs et créer des réflexes cyber.</p>
       <div class="split">
         <div class="labbox">
-          <div class="question-meta"><span class="tag blue">Python Challenge</span><strong id="pythonCounter">1 / 5</strong></div>
-          <h3 id="pythonChallengeTitle" class="question-title"></h3>
-          <p id="pythonInstruction" class="translation"></p>
+          <div class="question-meta"><span class="tag blue">Python Challenge</span><strong id="pythonCounter">1 / 3</strong></div>
+          <h3 id="pythonChallengeTitle" class="question-title">Challenge Python</h3>
+          <p id="pythonInstruction" class="translation">Instructions</p>
           <textarea id="pythonCode" placeholder="Write Python code here..."></textarea><br><br>
           <button class="primary" onclick="validatePythonChallenge()">Run / Validate</button>
           <button class="cyan" onclick="nextPythonChallenge()">Next Challenge</button>
           <div id="pythonFeedback" class="feedback"></div>
         </div>
-        <div><div id="pythonQuiz" class="quiz"></div><br><div class="codebox" id="pythonConsole">Python Security Console Ready...</div></div>
+        <div>
+          <div id="pythonQuiz" class="quiz"></div>
+          <br>
+          <div class="codebox" id="pythonConsole">Python Security Console Ready...</div>
+        </div>
       </div>
     </section>
 
-    <section id="cyber" class="panel"><h2 class="title">🔐 Cybersecurity Fundamentals</h2><p class="subtitle">Culture cyber défensive : logs, phishing, SSH, firewall, incident response.</p><div id="cyberQuiz" class="quiz"></div></section>
+    <!-- CYBER SECURITY -->
+    <section id="cyber" class="panel">
+      <h2 class="title">🔐 Cybersecurity Fundamentals</h2>
+      <p class="subtitle">Culture cyber défensive : logs, phishing, SSH, firewall, incident response.</p>
+      <div id="cyberQuiz" class="quiz"></div>
+    </section>
 
+    <!-- INCIDENT ANALYSIS -->
     <section id="incident" class="panel">
       <h2 class="title">🧪 Incident Analysis Lab</h2>
       <p class="subtitle">Étudier une attaque simulée de manière défensive : comprendre la chaîne d’incident, identifier la faille probable et proposer une correction.</p>
@@ -593,6 +616,7 @@ Mission: ls → cd logs → ls → tail auth.log → grep Failed auth.log</div>
       </div>
     </section>
 
+    <!-- ATTACK / DEFENSE -->
     <section id="attack" class="panel">
       <h2 class="title">🚨 Attack / Defense Simulator</h2>
       <p class="subtitle">Console cyber animée : scan, alertes, logs, firewall et isolation de menace.</p>
@@ -601,387 +625,474 @@ Mission: ls → cd logs → ls → tail auth.log → grep Failed auth.log</div>
       <button class="primary" onclick="clearAttackConsole()">Reset Console</button>
     </section>
 
+    <!-- TOPOLOGY -->
     <section id="topology" class="panel">
       <h2 class="title">🛰️ Animated Network Topology</h2>
       <p class="subtitle">Schéma visuel : Internet → Firewall → Cisco Router → Linux Server → Client.</p>
-      <div class="topology"><div class="packet"></div><div class="network-map"><div class="node"><div class="icon">🌍</div><strong>Internet</strong><small>External traffic</small></div><div class="node"><div class="icon">🔥</div><strong>Firewall</strong><small>Filtering / ACL</small></div><div class="node"><div class="icon">🖧</div><strong>Cisco Router</strong><small>Routing / VLAN</small></div><div class="node"><div class="icon">🐧</div><strong>Linux Server</strong><small>SSH / Logs</small></div><div class="node"><div class="icon">👨‍💻</div><strong>Client</strong><small>User workstation</small></div></div></div>
+      <div class="topology">
+        <div class="packet"></div>
+        <div class="network-map">
+          <div class="node"><div class="icon">🌍</div><strong>Internet</strong><small>External traffic</small></div>
+          <div class="node"><div class="icon">🔥</div><strong>Firewall</strong><small>Filtering / ACL</small></div>
+          <div class="node"><div class="icon">🖧</div><strong>Cisco Router</strong><small>Routing / VLAN</small></div>
+          <div class="node"><div class="icon">🐧</div><strong>Linux Server</strong><small>SSH / Logs</small></div>
+          <div class="node"><div class="icon">👨‍💻</div><strong>Client</strong><small>User workstation</small></div>
+        </div>
+      </div>
     </section>
 
+    <!-- CYBER ASSISTANT -->
     <section id="assistant" class="panel">
       <h2 class="title">🤖 Cyber Assistant Simulator</h2>
       <p class="subtitle">Assistant pédagogique intégré. Il explique les notions sans connexion externe.</p>
       <div class="split">
-        <div class="labbox"><input type="text" id="assistantInput" placeholder="Ask: explain ssh / explain vlan / analyze logs / python logs"><br><br><button class="primary" onclick="askAssistant()">Ask Cyber Assistant</button><div id="assistantOutput" class="feedback show good">Try a question: explain ssh</div></div>
-        <div class="card"><h3>Examples</h3><p>explain ssh<br>explain vlan<br>analyze logs<br>python logs<br>secure linux</p></div>
+        <div class="labbox">
+          <h3>Demander à l'assistant</h3>
+          <p class="translation">Sélectionne un sujet pour obtenir des explications immédiates bilingues.</p>
+          <div class="hero-actions" style="justify-content:flex-start">
+            <button onclick="askAssistant('ssh')">Explain SSH Hardening</button>
+            <button onclick="askAssistant('vlan')">Explain VLAN Trunking</button>
+            <button onclick="askAssistant('cron')">Explain Python Cron Automation</button>
+          </div>
+        </div>
+        <div class="codebox" id="assistantOutput">Sélectionne une notion ci-contre pour voir l'explication...</div>
       </div>
     </section>
 
+    <!-- INTERVIEW -->
     <section id="interview" class="panel">
-      <h2 class="title">🎙️ Interview & French / English Training</h2>
-      <p class="subtitle">Préparer son discours professionnel en anglais et en français.</p>
-      <div class="language-box"><div class="card frbox"><h3>🇫🇷 Question recruteur</h3><p>Expliquez votre expérience en réseau et votre objectif en cybersécurité.</p></div><div class="card enbox"><h3>🇬🇧 Recruiter question</h3><p>Explain your network experience and your cybersecurity goal.</p></div></div><br>
-      <textarea id="interviewText" placeholder="Write your answer here / Écris ta réponse ici..."></textarea><br><br><button class="primary" onclick="evaluateInterview()">Evaluate structure</button><div id="interviewFeedback" class="feedback"></div>
+      <h2 class="title">🎙️ SOC Interview Preparation</h2>
+      <p class="subtitle">Questions fréquemment posées en entretien de recrutement Cybersécurité / SOC.</p>
+      <div id="interviewBox" class="quiz"></div>
     </section>
 
-    <section id="flashcards" class="panel"><h2 class="title">⚡ Bilingual Flashcards</h2><p class="subtitle">Clique sur les cartes pour retourner et mémoriser.</p><div class="flash-grid" id="flashGrid"></div></section>
-    <section id="mistakes" class="panel"><h2 class="title">❌ Mistakes Review</h2><p class="subtitle">Les erreurs sont sauvegardées localement pour réviser intelligemment.</p><div id="mistakesBox"></div></section>
-    <section id="roadmap" class="panel"><h2 class="title">🧭 30 Days Roadmap</h2><p class="subtitle">Progression structurée, adaptée à un profil réseau qui veut monter en cybersécurité.</p><div class="roadmap"><div class="step"><strong>Week 1 · Linux Core:</strong> pwd, ls, cd, cat, grep, tail, chmod, users, permissions, logs.</div><div class="step"><strong>Week 2 · Network Security:</strong> IP, subnet, DNS, DHCP, VLAN, routing, firewall, VPN, troubleshooting.</div><div class="step"><strong>Week 3 · Python Automation:</strong> variables, loops, functions, files, log parser, simple network tools.</div><div class="step"><strong>Week 4 · Cyber Defense:</strong> phishing, SSH hardening, brute force detection, incident response, LinkedIn/interview.</div></div></section>
+    <!-- FLASHCARDS -->
+    <section id="flashcards" class="panel">
+      <h2 class="title">⚡ Quick Flashcards</h2>
+      <p class="subtitle">Clique sur une carte pour voir sa réponse ou sa traduction technique.</p>
+      <div class="flash-grid">
+        <div class="flash" onclick="this.classList.toggle('flipped')">
+          <div class="flash-inner">
+            <div class="flash-front"><strong>tail -f /var/log/auth.log</strong><small>À quoi sert cette commande ?</small></div>
+            <div class="flash-back"><strong>Réponse</strong><small>Surveiller en temps réel les tentatives de connexion et d'authentification sur la machine.</small></div>
+          </div>
+        </div>
+        <div class="flash" onclick="this.classList.toggle('flipped')">
+          <div class="flash-inner">
+            <div class="flash-front"><strong>Port 22 vs Port 2222</strong><small>Pourquoi changer ?</small></div>
+            <div class="flash-back"><strong>Sécurité par l'obscurité</strong><small>Évite les scans automatiques de masse de robots bruteforce ciblant le port SSH par défaut.</small></div>
+          </div>
+        </div>
+        <div class="flash" onclick="this.classList.toggle('flipped')">
+          <div class="flash-inner">
+            <div class="flash-front"><strong>SIEM</strong><small>What does it mean?</small></div>
+            <div class="flash-back"><strong>Security Information and Event Management</strong><small>Outil centralisant les logs pour détecter les comportements suspects.</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISTAKES TRACKER -->
+    <section id="mistakes" class="panel">
+      <h2 class="title">❌ Mistakes & Review Board</h2>
+      <p class="subtitle">Historique de tes erreurs durant cette session pour retravailler les points faibles.</p>
+      <div id="mistakesList">
+        <p class="translation">Aucune erreur enregistrée pour le moment. Beau travail !</p>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="panel">
+      <h2 class="title">🧭 Blue Team Certification Roadmap</h2>
+      <p class="subtitle">Parcours structuré recommandé pour Muaz.</p>
+      <div class="roadmap">
+        <div class="step"><strong>Étape 1 : Fondations Robustes</strong><br>Linux Administration standard et bases de l'adressage Réseau Cisco (CCNA).</div>
+        <div class="step"><strong>Étape 2 : Automatisation Active</strong><br>Scripts Python pour parser des fichiers textes bruts, filtrer par IP ou mots-clés de sécurité.</div>
+        <div class="step"><strong>Étape 3 : Spécialisation SOC</strong><br>Analyse d'incidents complexes, logs Windows/Linux, règles d'alertes Firewall et Certifications d'entrée type Security+ ou BTL1.</div>
+      </div>
+    </section>
   </main>
 
-  <footer>CyberPath-Muaz V6 Fixed · SOC & Incident Analysis Lab · Local offline training simulator</footer>
+  <footer>
+    <p>© 2026 CyberPath Simulator · Conçu en binôme technologique</p>
+  </footer>
 
+  <!-- 🧠 LA LOGIQUE APPLICATIVE COMPLETE (JAVASCRIPT) -->
   <script>
-    const app={lang:'fr',startTime:Date.now(),state:JSON.parse(localStorage.getItem('cyberpath_muaz_v6')||'{"score":0,"errors":0,"answered":0,"streak":0,"mistakes":[],"terminalPoints":0,"socAlerts":0}'),current:{linux:0,network:0,python:0,cyber:0},mission:0,py:0};
-
-    const quiz={
-      linux:[
-        {tag:'Linux',q:{en:'Which command lists files and folders?',fr:'Quelle commande liste les fichiers et dossiers ?'},options:['ls','pwd','mkdir','chmod'],correct:0,exp:{en:'ls lists files and directories.',fr:'ls affiche les fichiers et dossiers.'}},
-        {tag:'Linux',q:{en:'Which command shows the current directory?',fr:'Quelle commande affiche le dossier actuel ?'},options:['pwd','cat','grep','sudo'],correct:0,exp:{en:'pwd means print working directory.',fr:'pwd signifie afficher le dossier de travail actuel.'}},
-        {tag:'Linux',q:{en:'Which command changes file permissions?',fr:'Quelle commande modifie les permissions d’un fichier ?'},options:['chmod','tail','ping','cd'],correct:0,exp:{en:'chmod changes permissions.',fr:'chmod modifie les permissions.'}},
-        {tag:'Linux Logs',q:{en:'Which command displays the last lines of a log file?',fr:'Quelle commande affiche les dernières lignes d’un fichier log ?'},options:['tail','mkdir','whoami','clear'],correct:0,exp:{en:'tail is useful for reading the end of log files.',fr:'tail est utile pour lire la fin des fichiers journaux.'}},
-        {tag:'Linux Network',q:{en:'Which command displays network interfaces on modern Linux?',fr:'Quelle commande affiche les interfaces réseau sur Linux moderne ?'},options:['ip addr','ls -la','cat /etc/passwd','chmod 777'],correct:0,exp:{en:'ip addr shows network interfaces and IP addresses.',fr:'ip addr affiche les interfaces réseau et adresses IP.'}}
-      ],
-      network:[
-        {tag:'DNS',q:{en:'What does DNS do?',fr:'À quoi sert le DNS ?'},options:['Translate names to IP addresses','Encrypt disks','Create users','Compile Python'],correct:0,exp:{en:'DNS resolves domain names into IP addresses.',fr:'Le DNS transforme les noms de domaine en adresses IP.'}},
-        {tag:'DHCP',q:{en:'What is DHCP used for?',fr:'À quoi sert DHCP ?'},options:['Automatically assign IP configuration','Block phishing emails','Delete logs','Create passwords'],correct:0,exp:{en:'DHCP automatically provides IP configuration.',fr:'DHCP fournit automatiquement la configuration IP.'}},
-        {tag:'VLAN',q:{en:'What is a VLAN?',fr:'Qu’est-ce qu’un VLAN ?'},options:['A logical network segmentation','A Linux password','A Python loop','A web browser'],correct:0,exp:{en:'VLANs separate networks logically.',fr:'Les VLAN séparent les réseaux de manière logique.'}},
-        {tag:'Firewall',q:{en:'What is a firewall used for?',fr:'À quoi sert un pare-feu ?'},options:['Filter network traffic','Format a server','Create DNS names','Replace Linux'],correct:0,exp:{en:'A firewall filters allowed and blocked traffic.',fr:'Un pare-feu filtre le trafic autorisé et bloqué.'}},
-        {tag:'VPN',q:{en:'What is a VPN mainly used for?',fr:'À quoi sert principalement un VPN ?'},options:['Secure remote connection','Increase monitor brightness','Delete malware automatically','Create VLAN names'],correct:0,exp:{en:'VPNs create secure tunnels for remote access.',fr:'Les VPN créent des tunnels sécurisés pour l’accès distant.'}}
-      ],
-      python:[
-        {tag:'Python',q:{en:'Which keyword defines a function in Python?',fr:'Quel mot-clé définit une fonction en Python ?'},options:['def','function','create','func'],correct:0,exp:{en:'Python uses def to define functions.',fr:'Python utilise def pour définir des fonctions.'}},
-        {tag:'Python',q:{en:'Which loop is commonly used to iterate over items?',fr:'Quelle boucle sert souvent à parcourir des éléments ?'},options:['for','repeat','scan','route'],correct:0,exp:{en:'for loops are used for iteration.',fr:'Les boucles for servent à parcourir des éléments.'}},
-        {tag:'Python Files',q:{en:'Which function opens a file in Python?',fr:'Quelle fonction ouvre un fichier en Python ?'},options:['open()','readfile()','start()','loadlinux()'],correct:0,exp:{en:'open() is used to open files.',fr:'open() sert à ouvrir des fichiers.'}},
-        {tag:'Cyber Python',q:{en:'Why is Python useful in cybersecurity?',fr:'Pourquoi Python est utile en cybersécurité ?'},options:['Automation and log analysis','It replaces all firewalls','It removes the need for Linux','It blocks every attack automatically'],correct:0,exp:{en:'Python helps automate tasks and analyze data/logs.',fr:'Python aide à automatiser et analyser des données/logs.'}},
-        {tag:'Python Logic',q:{en:'What is an if statement used for?',fr:'À quoi sert une condition if ?'},options:['Decision making','Routing packets','Creating VLANs','Changing file ownership only'],correct:0,exp:{en:'if statements make decisions based on conditions.',fr:'if permet de prendre une décision selon une condition.'}}
-      ],
-      cyber:[
-        {tag:'Phishing',q:{en:'What is phishing?',fr:'Qu’est-ce que le phishing ?'},options:['A social engineering attack','A Cisco protocol','A Linux folder','A Python syntax error'],correct:0,exp:{en:'Phishing tricks users into revealing information.',fr:'Le phishing piège les utilisateurs pour obtenir des informations.'}},
-        {tag:'SSH',q:{en:'What is a common sign of SSH brute force?',fr:'Quel est un signe courant de brute force SSH ?'},options:['Many failed login attempts','One normal DNS query','A full hard drive only','A successful software update'],correct:0,exp:{en:'Repeated failed logins can indicate brute force.',fr:'Des échecs répétés de connexion peuvent indiquer une attaque brute force.'}},
-        {tag:'Logs',q:{en:'Why are logs important?',fr:'Pourquoi les logs sont importants ?'},options:['They help investigate events','They decorate the terminal','They replace backups','They stop all attacks'],correct:0,exp:{en:'Logs help understand what happened.',fr:'Les logs aident à comprendre ce qui s’est passé.'}},
-        {tag:'Passwords',q:{en:'What makes a password stronger?',fr:'Qu’est-ce qui rend un mot de passe plus fort ?'},options:['Length, uniqueness and complexity','Using 123456','Using your birthday','Reusing it everywhere'],correct:0,exp:{en:'Strong passwords are long, unique and hard to guess.',fr:'Un mot de passe fort est long, unique et difficile à deviner.'}},
-        {tag:'Defense',q:{en:'What should you do with suspicious attachments?',fr:'Que faire avec une pièce jointe suspecte ?'},options:['Do not open; verify first','Open quickly','Forward to everyone','Disable the antivirus'],correct:0,exp:{en:'Verify before opening suspicious attachments.',fr:'Il faut vérifier avant d’ouvrir une pièce jointe suspecte.'}}
-      ]
+    // ÉTAT GLOBAL DE L'APPLICATION
+    let state = {
+      progress: 0,
+      score: 0,
+      errors: 0,
+      streak: 0,
+      currentLevel: 'START',
+      threatLevel: 'LOW',
+      lang: 'FR',
+      mistakes: []
     };
 
-    const missions=[
-      {title:'Mission 1 · Navigation',objective:'List files in the current directory.',answer:'ls',exp:'ls lists files and folders.'},
-      {title:'Mission 2 · Location',objective:'Show the current directory.',answer:'pwd',exp:'pwd prints the working directory.'},
-      {title:'Mission 3 · Logs',objective:'Search failed attempts in auth.log.',answer:'grep Failed auth.log',exp:'grep searches text patterns inside files.'},
-      {title:'Mission 4 · Network',objective:'Display network interfaces.',answer:'ip addr',alt:'ip a',exp:'ip addr shows interfaces and IP addresses.'},
-      {title:'Mission 5 · Permissions',objective:'Change file permission example to owner-only read/write.',answer:'chmod 600 file.txt',exp:'chmod changes file permissions.'}
+    // DONNÉES DU SIMULATEUR
+    const linuxMissions = [
+      { q: "ls", obj: "Lister les fichiers d'un répertoire courant", ans: "ls" },
+      { q: "cd logs", obj: "Entrer dans le répertoire nommé 'logs'", ans: "cd logs" },
+      { q: "chmod 700 script.py", obj: "Donner les droits complets au propriétaire uniquement sur script.py", ans: "chmod 700 script.py" }
+    ];
+    let currentLinuxMissionIdx = 0;
+
+    const pythonChallenges = [
+      { title: "Filtrer une IP suspecte", inst: "Crée une variable nommée `bad_ip` contenant l'adresse textuelle '192.168.1.100'", check: (txt) => txt.includes("bad_ip") && (txt.includes("'192.168.1.100'") || txt.includes('"192.168.1.100"')) },
+      { title: "Boucle sur les ports ouverts", inst: "Écris un print() qui affiche 'Alert'", check: (txt) => txt.includes("print") }
+    ];
+    let currentPythonChallengeIdx = 0;
+
+    // INSERER QUIZ DYNAMIQUES
+    function setupQuiz(containerId, questions, sectionName) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
+      container.innerHTML = `<h3>🎯 Quiz Dynamique - ${sectionName}</h3>`;
+      
+      questions.forEach((q, qIdx) => {
+        const qDiv = document.createElement('div');
+        qDiv.style.marginTop = "20px";
+        qDiv.innerHTML = `
+          <p class="question-title"><strong>${qIdx + 1}.</strong> ${q.question}</p>
+          <div class="options-block"></div>
+          <div class="feedback" id="fb-${containerId}-${qIdx}"></div>
+        `;
+        
+        const optionsBlock = qDiv.querySelector('.options-block');
+        q.options.forEach((opt, oIdx) => {
+          const btn = document.createElement('button');
+          btn.className = "option";
+          btn.innerText = opt;
+          btn.onclick = () => {
+            const fb = document.getElementById(`fb-${containerId}-${qIdx}`);
+            if(oIdx === q.correct) {
+              btn.classList.add('correct');
+              fb.className = "feedback show good";
+              fb.innerText = "Correct! " + q.expl;
+              handleSuccess();
+            } else {
+              btn.classList.add('wrong');
+              fb.className = "feedback show bad";
+              fb.innerText = "Incorrect. La bonne réponse était : " + q.options[q.correct];
+              handleFailure(q.question);
+            }
+            // Désactiver les options du bloc
+            optionsBlock.querySelectorAll('button').forEach(b => b.disabled = true);
+          };
+          optionsBlock.appendChild(btn);
+        });
+        container.appendChild(qDiv);
+      });
+    }
+
+    const networkQuestions = [
+      { question: "Quel protocole attribue automatiquement des adresses IP aux hôtes du réseau ?", options: ["DNS", "DHCP", "SSH", "BGP"], correct: 1, expl: "DHCP (Dynamic Host Configuration Protocol) distribue les configurations réseau." },
+      { question: "À quoi sert un VLAN Trunk (802.1Q) chez Cisco ?", options: ["Isoler un seul utilisateur", "Transporter plusieurs VLANs sur un seul lien physique", "Crypter le trafic", "Bloquer les requêtes Web"], correct: 1, expl: "Le mode Trunk permet d'acheminer les trames de plusieurs VLANs sur un seul câble." }
     ];
 
-    const pyChallenges=[
-      {title:'Python Challenge 1',instruction:'Display a network scan message.',answer:'print("Scanning network...")'},
-      {title:'Python Challenge 2',instruction:'Create a variable ip containing 192.168.1.1',answer:'ip = "192.168.1.1"'},
-      {title:'Python Challenge 3',instruction:'Display a security alert.',answer:'print("Security Alert")'},
-      {title:'Python Challenge 4',instruction:'Create a list named ports with 22, 80, 443',answer:'ports = [22, 80, 443]'},
-      {title:'Python Challenge 5',instruction:'Check if the word Failed exists in a log line.',answer:'if "Failed" in line:'}
+    const cyberQuestions = [
+      { question: "Où sont principalement stockés les logs d'authentification sur une machine Debian/Ubuntu ?", options: ["/var/log/nginx/access.log", "/var/log/auth.log", "/etc/passwd", "/var/log/syslog"], correct: 1, expl: "/var/log/auth.log centralise les évènements d'accès système." }
     ];
 
-    const flashcards=[
-      ['ls','List files and folders · Lister fichiers et dossiers'],
-      ['grep','Search text patterns inside files · Rechercher du texte'],
-      ['chmod','Change file permissions · Modifier permissions'],
-      ['DNS','Domain Name System: name → IP'],
-      ['DHCP','Automatic IP configuration'],
-      ['VLAN','Logical network segmentation'],
-      ['SSH','Secure Shell remote access'],
-      ['Python','Automation, scripting, log analysis'],
-      ['Firewall','Filters network traffic'],
-      ['Brute Force','Repeated password guessing attempts']
+    const interviewQuestions = [
+      { question: "Quelle est la différence entre encodage, chiffrement (encryption) et hachage (hashing) ?", options: ["Aucune", "L'encodage masque la donnée, le chiffrement la protège de façon réversible via clé, le hachage est une empreinte irréversible", "Le hachage est fait pour restaurer les mots de passe"], correct: 1, expl: "Différence fondamentale pour préserver la confidentialité (chiffrement) et l'intégrité (hachage)." }
     ];
 
-    const cyberLogs=[
-      '[INFO] Initializing network scan...',
-      '[INFO] Checking TCP ports...',
-      '[WARNING] SSH attempt detected on 192.168.1.14',
-      '[INFO] Reading Linux auth logs...',
-      '[ALERT] Multiple failed login attempts detected',
-      '[INFO] Firewall inspection active...',
-      '[SUCCESS] Threat isolated successfully',
-      '[SECURE] No critical vulnerability detected'
-    ];
-
-    const fs={
-      path:['home','muaz'],
-      files:{
-        '/home/muaz':['linux','python','network','logs','notes.txt'],
-        '/home/muaz/logs':['auth.log','syslog'],
-        '/home/muaz/linux':['permissions.txt','commands.txt'],
-        '/home/muaz/python':['scanner.py','log_parser.py'],
-        '/home/muaz/network':['dns.txt','vlan.txt']
-      },
-      content:{
-        '/home/muaz/notes.txt':'CyberPath notes: Linux first, then Network, Python and Cybersecurity.',
-        '/home/muaz/logs/auth.log':'May 15 10:12 Failed password for root from 185.77.21.9
-May 15 10:13 Failed password for admin from 185.77.21.9
-May 15 10:14 Accepted password for muaz from 192.168.1.22',
-        '/home/muaz/logs/syslog':'systemd started ssh.service
-NetworkManager connected eth0
-kernel: firewall rule loaded',
-        '/home/muaz/linux/permissions.txt':'r = read, w = write, x = execute. chmod changes permissions.',
-        '/home/muaz/linux/commands.txt':'pwd, ls, cd, cat, grep, tail, chmod, ip addr, ping, systemctl',
-        '/home/muaz/python/scanner.py':'for host in hosts:
-    print("Checking", host)',
-        '/home/muaz/python/log_parser.py':'with open("auth.log") as f:
-    for line in f:
-        if "Failed" in line:
-            print(line)',
-        '/home/muaz/network/dns.txt':'DNS resolves domain names into IP addresses.',
-        '/home/muaz/network/vlan.txt':'VLANs separate networks logically.'
-      }
-    };
-
-    function save(){localStorage.setItem('cyberpath_muaz_v6',JSON.stringify(app.state))}
-
-    function updateDashboard(){
-      const progress=Math.min(100,Math.round((app.state.answered+(app.state.terminalPoints||0))/45*100));
-      document.getElementById('progress').textContent=progress+'%';
-      document.getElementById('score').textContent=app.state.score;
-      document.getElementById('errors').textContent=app.state.errors;
-      document.getElementById('streak').textContent=app.state.streak;
-      let level='START';
-      if(app.state.score>=5)level='LINUX';
-      if(app.state.score>=10)level='NETWORK';
-      if(app.state.score>=16)level='CYBER';
-      if(app.state.score>=24)level='SOC READY';
-      document.getElementById('level').textContent=level;
-      document.getElementById('threatLevel').textContent=(app.state.socAlerts||0)>2?'HIGH':(app.state.socAlerts||0)>0?'MED':'LOW';
-      save();
-      renderMistakes();
+    // FONCTIONS DE MISES À JOUR GLOBALES
+    function updateDashboard() {
+      document.getElementById('progress').innerText = state.progress + "%";
+      document.getElementById('score').innerText = state.score;
+      document.getElementById('errors').innerText = state.errors;
+      document.getElementById('streak').innerText = state.streak;
+      document.getElementById('level').innerText = state.currentLevel;
+      document.getElementById('threatLevel').innerText = state.threatLevel;
+      
+      // Niveau adaptatif basé sur les scores
+      if (state.score >= 3 && state.score < 6) state.currentLevel = "JUNIOR";
+      if (state.score >= 6) state.currentLevel = "OPERATOR";
     }
 
-    function showPanel(id,btn){
-      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-      document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      if(btn)btn.classList.add('active');
-    }
-
-    function showPanelById(id){
-      const btn=[...document.querySelectorAll('#mainNav button')].find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes(`'${id}'`));
-      showPanel(id,btn);
-      document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
-    }
-
-    function renderQuiz(type){
-      const box=document.getElementById(type+'Quiz');
-      const list=quiz[type];
-      const i=app.current[type]%list.length;
-      const item=list[i];
-      box.innerHTML=`<div class="question-meta"><span class="tag">${item.tag}</span><strong>${i+1} / ${list.length}</strong></div><div class="progress"><div class="bar" style="width:${(i/list.length)*100}%"></div></div><h3 class="question-title">${item.q.en}</h3><div class="translation">🇫🇷 ${item.q.fr}</div>${item.options.map((op,idx)=>`<button class="option" onclick="answerQuiz('${type}',${idx})">${op}</button>`).join('')}<div id="${type}Feedback" class="feedback"></div>`;
-    }
-
-    function answerQuiz(type,index){
-      const list=quiz[type];
-      const item=list[app.current[type]%list.length];
-      const box=document.getElementById(type+'Quiz');
-      const buttons=box.querySelectorAll('.option');
-      buttons.forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add('correct');if(i===index&&index!==item.correct)b.classList.add('wrong')});
-      const fb=document.getElementById(type+'Feedback');
-      fb.classList.add('show');
-      if(index===item.correct){
-        app.state.score++;app.state.streak++;
-        fb.classList.add('good');
-        fb.innerHTML=`✅ Correct<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
-      }else{
-        app.state.errors++;app.state.streak=0;
-        fb.classList.add('bad');
-        fb.innerHTML=`❌ Review<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
-        app.state.mistakes.push({module:type,question:item.q.en,questionFr:item.q.fr,correct:item.options[item.correct],exp:item.exp.en});
-      }
-      app.state.answered++;app.current[type]++;updateDashboard();setTimeout(()=>renderQuiz(type),1900);
-    }
-
-    function renderMission(){
-      const m=missions[app.mission];
-      document.getElementById('missionCounter').textContent=`${app.mission+1} / ${missions.length}`;
-      document.getElementById('missionTitle').textContent=m.title;
-      document.getElementById('missionObjective').textContent=m.objective;
-      document.getElementById('missionAnswer').value='';
-      document.getElementById('missionFeedback').className='feedback';
-      document.getElementById('missionFeedback').innerHTML='';
-    }
-
-    function validateMission(){
-      const m=missions[app.mission];
-      const input=document.getElementById('missionAnswer').value.trim();
-      const fb=document.getElementById('missionFeedback');
-      fb.classList.add('show');
-      if(input.toLowerCase()===m.answer.toLowerCase()||(m.alt&&input.toLowerCase()===m.alt.toLowerCase())){
-        fb.classList.add('good');fb.innerHTML='✅ Mission complete.<br>'+m.exp;app.state.score++;app.state.streak++;
-      }else{
-        fb.classList.add('bad');fb.innerHTML=`❌ Expected: <strong>${m.answer}</strong><br>${m.exp}`;app.state.errors++;app.state.streak=0;app.state.mistakes.push({module:'linux mission',question:m.objective,correct:m.answer,exp:m.exp});
-      }
-      app.state.answered++;updateDashboard();
-    }
-
-    function nextMission(){app.mission=(app.mission+1)%missions.length;renderMission()}
-
-    function renderPythonChallenge(){
-      const c=pyChallenges[app.py];
-      document.getElementById('pythonCounter').textContent=`${app.py+1} / ${pyChallenges.length}`;
-      document.getElementById('pythonChallengeTitle').textContent=c.title;
-      document.getElementById('pythonInstruction').textContent=c.instruction;
-      document.getElementById('pythonCode').value='';
-      document.getElementById('pythonFeedback').className='feedback';
-      document.getElementById('pythonFeedback').innerHTML='';
-    }
-
-    function validatePythonChallenge(){
-      const c=pyChallenges[app.py];
-      const code=document.getElementById('pythonCode').value.trim();
-      const fb=document.getElementById('pythonFeedback');
-      const consoleBox=document.getElementById('pythonConsole');
-      fb.classList.add('show');
-      if(code===c.answer){
-        fb.classList.add('good');fb.innerHTML='✅ Python challenge validated.';
-        consoleBox.textContent+='
-[SUCCESS] '+c.title;
-        app.state.score++;app.state.streak++;
-      }else{
-        fb.classList.add('bad');fb.innerHTML=`❌ Expected: <strong>${c.answer}</strong>`;
-        consoleBox.textContent+='
-[ERROR] Invalid Python command';
-        app.state.errors++;app.state.streak=0;app.state.mistakes.push({module:'python challenge',question:c.instruction,correct:c.answer,exp:'Python syntax must match the expected answer.'});
-      }
-      app.state.answered++;updateDashboard();
-    }
-
-    function nextPythonChallenge(){app.py=(app.py+1)%pyChallenges.length;renderPythonChallenge()}
-
-    function currentPath(){return'/'+fs.path.join('/')}
-    function resolvePath(p){if(!p||p==='.')return currentPath();if(p==='~')return'/home/muaz';if(p.startsWith('/'))return p;if(p==='..')return'/'+fs.path.slice(0,-1).join('/');return currentPath()+'/'+p}
-
-    function terminalCommand(event){
-      if(event.key!=='Enter')return;
-      const input=document.getElementById('terminalInput'),screen=document.getElementById('terminalScreen'),cmdLine=input.value.trim();
-      input.value='';
-      if(!cmdLine)return;
-      const parts=cmdLine.split(' '),cmd=parts[0],arg=parts.slice(1).join(' ');
-      let output='';
-      if(cmd==='help')output='Commands: pwd, ls, cd, cat, grep, tail, chmod, whoami, ip addr, ping, systemctl, sudo, clear';
-      else if(cmd==='pwd')output=currentPath();
-      else if(cmd==='ls')output=(fs.files[currentPath()]||['No files']).join('  ');
-      else if(cmd==='cd'){
-        const target=resolvePath(arg||'~');
-        if(fs.files[target]){fs.path=target.split('/').filter(Boolean);output=''}else output='cd: no such directory: '+arg;
-      }
-      else if(cmd==='cat'){
-        const target=resolvePath(arg);output=fs.content[target]||'cat: file not found: '+arg;
-      }
-      else if(cmd==='tail'){
-        const file=parts[parts.length-1];const target=resolvePath(file);output=fs.content[target]||'tail: file not found: '+file;
-      }
-      else if(cmd==='grep'){
-        const pattern=parts[1],file=parts[2],target=resolvePath(file),content=fs.content[target];
-        output=content?content.split('
-').filter(l=>l.toLowerCase().includes((pattern||'').toLowerCase())).join('
-')||'No match':'grep: file not found';
-        if(pattern&&pattern.toLowerCase()==='failed')awardTerminalPoint();
-      }
-      else if(cmd==='chmod')output='Permissions changed (simulation). Example: chmod 600 file.txt';
-      else if(cmd==='whoami')output='muaz';
-      else if(cmd==='ip'&&(parts[1]==='addr'||parts[1]==='a')){output='eth0: inet 192.168.1.22/24
-lo: inet 127.0.0.1/8';awardTerminalPoint()}
-      else if(cmd==='ping')output=`PING ${arg||'8.8.8.8'}: 64 bytes from ${arg||'8.8.8.8'} icmp_seq=1 ttl=57 time=18.4 ms`;
-      else if(cmd==='systemctl')output='ssh.service active (running)
-NetworkManager.service active (running)';
-      else if(cmd==='sudo')output='sudo: educational simulator only. Good reflex: use sudo carefully.';
-      else if(cmd==='clear'){screen.textContent='';return}
-      else output=`Command not found: ${cmd}. Type help.`;
-      screen.textContent+=`
-
-muaz@cyberpath:${currentPath()}$ ${cmdLine}
-${output}`;
-      screen.scrollTop=screen.scrollHeight;
-    }
-
-    function awardTerminalPoint(){app.state.terminalPoints=Math.min((app.state.terminalPoints||0)+1,8);updateDashboard()}
-
-    function simulateSocAlert(){
-      app.state.socAlerts=(app.state.socAlerts||0)+1;
-      document.getElementById('socAlerts').textContent=app.state.socAlerts;
-      document.getElementById('socThreat').textContent=app.state.socAlerts>2?'HIGH':'MED';
-      document.getElementById('socTraffic').textContent=128+app.state.socAlerts*47;
-      document.getElementById('socLogs').textContent+=`
-[ALERT] Suspicious SSH activity from 185.77.21.${app.state.socAlerts+8}`;
+    function handleSuccess() {
+      state.score += 1;
+      state.streak += 1;
+      state.progress = Math.min(100, state.progress + 10);
       updateDashboard();
     }
 
-    function resolveSocAlert(){
-      if((app.state.socAlerts||0)>0)app.state.socAlerts--;
-      document.getElementById('socAlerts').textContent=app.state.socAlerts;
-      document.getElementById('socThreat').textContent=app.state.socAlerts>2?'HIGH':app.state.socAlerts>0?'MED':'LOW';
-      document.getElementById('socLogs').textContent+='
-[SUCCESS] Alert triaged and documented';
-      app.state.score++;
+    function handleFailure(questionText) {
+      state.errors += 1;
+      state.streak = 0;
       updateDashboard();
+      
+      if(!state.mistakes.includes(questionText)) {
+        state.mistakes.push(questionText);
+        renderMistakes();
+      }
     }
 
-    function incidentAnswer(btn,isCorrect){
-      document.querySelectorAll('#incident .option').forEach(b=>b.disabled=true);
-      const fb=document.getElementById('incidentFeedback');fb.classList.add('show');
-      if(isCorrect){btn.classList.add('correct');fb.classList.add('good');fb.innerHTML='✅ Correct. Pattern matches brute force / credential guessing. Defensive actions: preserve logs, block IP if needed, enforce MFA, harden SSH.';app.state.score+=2;app.state.streak++}
-      else{btn.classList.add('wrong');fb.classList.add('bad');fb.innerHTML='❌ Not the best hypothesis. Repeated failed logins point to brute force or credential guessing.';app.state.errors++;app.state.streak=0}
-      app.state.answered++;updateDashboard();
+    function renderMistakes() {
+      const box = document.getElementById('mistakesList');
+      if(!box) return;
+      if(state.mistakes.length === 0) {
+        box.innerHTML = `<p class="translation">Aucune erreur enregistrée pour le moment. Beau travail !</p>`;
+        return;
+      }
+      box.innerHTML = "";
+      state.mistakes.forEach(m => {
+        box.innerHTML += `<div class="mistake-card"><strong>Sujet sensible repéré :</strong> ${m}<br><small style="color:var(--cyan)">Conseil : Relire la documentation correspondante ou s'entraîner sur le simulateur de terminal.</small></div>`;
+      });
     }
 
-    function launchCyberAttack(){
-      const box=document.getElementById('attackConsole');box.textContent='';let i=0;
-      const interval=setInterval(()=>{if(i>=cyberLogs.length){clearInterval(interval);app.state.score++;updateDashboard();return}box.textContent+='
-'+cyberLogs[i];box.scrollTop=box.scrollHeight;i++},900);
-    }
-    function clearAttackConsole(){document.getElementById('attackConsole').textContent='CyberPath Attack/Defense Console Ready...'}
+    // INTERACTION SOC ALERT
+    function simulateSocAlert() {
+      document.getElementById('socThreat').innerText = "HIGH";
+      document.getElementById('socThreat').style.color = "var(--red)";
+      state.threatLevel = "HIGH";
+      updateDashboard();
 
-    function askAssistant(){
-      const q=document.getElementById('assistantInput').value.toLowerCase();const out=document.getElementById('assistantOutput');
-      let a='I can explain SSH, VLAN, logs, Python automation and Linux security.';
-      if(q.includes('ssh'))a='SSH is a secure remote access protocol. Defensive focus: disable root login, use keys, MFA, fail2ban and firewall restrictions.';
-      else if(q.includes('vlan'))a='A VLAN separates networks logically. It helps isolate users, servers and sensitive systems.';
-      else if(q.includes('log'))a='Logs are evidence. In incident response, preserve logs, search failed attempts, identify source IP and timeline.';
-      else if(q.includes('python'))a='Python helps automate log analysis, parse IPs, count failed attempts and generate reports.';
-      else if(q.includes('secure'))a='Linux hardening: update system, restrict SSH, least privilege, firewall, logs, backups and monitoring.';
-      out.innerHTML=a;out.className='feedback show good';
+      const logBox = document.getElementById('socLogs');
+      logBox.innerHTML += "\n[🚨 ALERT] [10:22:15] Multiple SSH failures detected on Server 01 from IP 185.77.21.9";
+      logBox.scrollTop = logBox.scrollHeight;
     }
 
-    function renderFlashcards(){document.getElementById('flashGrid').innerHTML=flashcards.map(c=>`<div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner"><div class="flash-front"><strong>${c[0]}</strong><small>Click to flip</small></div><div class="flash-back"><strong>${c[0]}</strong><small>${c[1]}</small></div></div></div>`).join('')}
+    function resolveSocAlert() {
+      document.getElementById('socThreat').innerText = "LOW";
+      document.getElementById('socThreat').style.color = "var(--green)";
+      state.threatLevel = "LOW";
+      updateDashboard();
 
-    function renderMistakes(){
-      const box=document.getElementById('mistakesBox');if(!box)return;
-      if(!app.state.mistakes.length){box.innerHTML='<div class="card"><h3>✅ No mistakes yet</h3><p>Errors will appear here for smart revision.</p></div>';return}
-      box.innerHTML=app.state.mistakes.slice().reverse().map(m=>`<div class="mistake-card"><strong>Module:</strong> ${m.module}<br><strong>Question:</strong> ${m.question}<br>${m.questionFr?`<strong>FR:</strong> ${m.questionFr}<br>`:''}<strong>Correct:</strong> ${m.correct}<br><strong>Explanation:</strong> ${m.exp}</div>`).join('');
+      const logBox = document.getElementById('socLogs');
+      logBox.innerHTML += "\n[✅ RESOLVED] [10:23:00] IP 185.77.21.9 blacklisted via Firewall ACL rules.";
+      logBox.scrollTop = logBox.scrollHeight;
     }
 
-    function evaluateInterview(){
-      const text=document.getElementById('interviewText').value.trim();const fb=document.getElementById('interviewFeedback');let score=0;const tips=[];
-      if(text.length>80)score+=25;else tips.push('Add more detail about experience.');
-      if(/network|réseau|cisco|linux|python|cyber/i.test(text))score+=35;else tips.push('Mention network/Cisco/Linux/Python/Cybersecurity.');
-      if(/goal|objectif|security|sécurité|cyber/i.test(text))score+=25;else tips.push('Explain the cybersecurity goal.');
-      if(/[.!?]/.test(text))score+=15;else tips.push('Use clear sentence punctuation.');
-      fb.classList.add('show');fb.classList.toggle('good',score>=70);fb.classList.toggle('bad',score<70);fb.innerHTML=`<strong>Structure score: ${score}/100</strong><br>${tips.length?tips.join('<br>'):'Strong structure. Clear and professional.'}`;
+    // GESTION MISSIONS LINUX
+    function renderLinuxMission() {
+      const m = linuxMissions[currentLinuxMissionIdx];
+      document.getElementById('missionCounter').innerText = `${currentLinuxMissionIdx + 1} / ${linuxMissions.length}`;
+      document.getElementById('missionTitle').innerText = `Objectif de commande : ${m.q}`;
+      document.getElementById('missionObjective').innerText = `Action à réaliser : ${m.obj}`;
+      document.getElementById('missionAnswer').value = "";
+      document.getElementById('missionFeedback').className = "feedback";
     }
 
-    function toggleLang(){app.lang=app.lang==='fr'?'en':'fr';document.documentElement.lang=app.lang;document.getElementById('langBtn').textContent=app.lang==='fr'?'FR / EN':'EN / FR';document.querySelectorAll('[data-fr][data-en]').forEach(el=>{el.textContent=el.dataset[app.lang]})}
-
-    function exportProgress(){
-      const text=`CyberPath-Muaz V6 Fixed Progress
-Score: ${app.state.score}
-Errors: ${app.state.errors}
-Answered: ${app.state.answered}
-Streak: ${app.state.streak}
-Terminal Points: ${app.state.terminalPoints||0}
-SOC Alerts: ${app.state.socAlerts||0}
-Mistakes: ${app.state.mistakes.length}`;
-      const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cyberpath-muaz-v6-progress.txt';a.click();
+    function validateMission() {
+      const ans = document.getElementById('missionAnswer').value.trim();
+      const target = linuxMissions[currentLinuxMissionIdx].ans;
+      const fb = document.getElementById('missionFeedback');
+      
+      if(ans === target) {
+        fb.className = "feedback show good";
+        fb.innerText = "Excellent réflexe ! La syntaxe est valide.";
+        handleSuccess();
+      } else {
+        fb.className = "feedback show bad";
+        fb.innerText = `Erreur de syntaxe. Attendue : "${target}"`;
+        handleFailure(`Mission Linux : ${linuxMissions[currentLinuxMissionIdx].obj}`);
+      }
     }
 
-    function resetAll(){if(!confirm('Reset all progress?'))return;localStorage.removeItem('cyberpath_muaz_v6');location.reload()}
+    function nextMission() {
+      currentLinuxMissionIdx = (currentLinuxMissionIdx + 1) % linuxMissions.length;
+      renderLinuxMission();
+    }
 
-    ['linux','network','python','cyber'].forEach(renderQuiz);
-    renderMission();renderPythonChallenge();renderFlashcards();renderMistakes();updateDashboard();setInterval(updateDashboard,60000);
+    // SIMULATEUR TERMINAL AVANCÉ
+    let currentDir = "~";
+    function terminalCommand(event) {
+      if (event.key !== 'Enter') return;
+      const input = document.getElementById('terminalInput');
+      const cmd = input.value.trim();
+      const screen = document.getElementById('terminalScreen');
+      if(!cmd) return;
+
+      let out = `\nmuaz@cyberpath:${currentDir}$ ${cmd}\n`;
+
+      switch(cmd) {
+        case "help":
+          out += "Available commands: help, pwd, ls, cd, cat, grep, tail, whoami, ip addr, clear";
+          break;
+        case "pwd":
+          out += currentDir === "~" ? "/home/muaz" : "/home/muaz/logs";
+          break;
+        case "ls":
+          if(currentDir === "~") {
+            out += "Desktop/  Documents/  logs/  script.py";
+          } else {
+            out += "auth.log  syslog  nginx.log";
+          }
+          break;
+        case "cd logs":
+          currentDir = "~/logs";
+          out += "Changed directory to /home/muaz/logs";
+          break;
+        case "cd ..":
+        case "cd ~":
+          currentDir = "~";
+          out += "Changed directory to /home/muaz";
+          break;
+        case "whoami":
+          out += "muaz";
+          break;
+        case "ip addr":
+          out += "1: lo: <LOOPBACK,UP> mtu 65536\n2: eth0: <BROADCAST,MULTICAST,UP> inet 192.168.1.52/24";
+          break;
+        case "tail auth.log":
+          if(currentDir === "~/logs") {
+            out += "[10:11] SSH Closed connection\n[10:12] Failed password for root from 185.77.21.9\n[10:12] Failed password for admin from 185.77.21.9";
+            state.progress = Math.min(100, state.progress + 5);
+            updateDashboard();
+          } else {
+            out += "tail: auth.log: No such file or directory";
+          }
+          break;
+        case "grep Failed auth.log":
+          if(currentDir === "~/logs") {
+            out += "🚨 [CRITICAL] Failed password for root from 185.77.21.9\n🚨 [CRITICAL] Failed password for admin from 185.77.21.9";
+            handleSuccess();
+          } else {
+            out += "grep: auth.log: No such file or directory";
+          }
+          break;
+        case "clear":
+          screen.innerText = "Terminal cleared. Type 'help'.";
+          input.value = "";
+          return;
+        default:
+          out += `bash: ${cmd}: command not found. Type 'help' for available options.`;
+      }
+
+      screen.innerText += out;
+      input.value = "";
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    // GESTION CHALLENGES PYTHON
+    function renderPythonChallenge() {
+      const c = pythonChallenges[currentPythonChallengeIdx];
+      document.getElementById('pythonCounter').innerText = `${currentPythonChallengeIdx + 1} / ${pythonChallenges.length}`;
+      document.getElementById('pythonChallengeTitle').innerText = c.title;
+      document.getElementById('pythonInstruction').innerText = c.inst;
+      document.getElementById('pythonCode').value = "";
+      document.getElementById('pythonFeedback').className = "feedback";
+    }
+
+    function validatePythonChallenge() {
+      const code = document.getElementById('pythonCode').value;
+      const c = pythonChallenges[currentPythonChallengeIdx];
+      const consoleBox = document.getElementById('pythonConsole');
+      const fb = document.getElementById('pythonFeedback');
+
+      if(c.check(code)) {
+        consoleBox.innerText = ">>> Executing script...\n[SUCCESS] Variable and conditions match requirements.";
+        fb.className = "feedback show good";
+        fb.innerText = "Script Python valide ! Belle maîtrise des structures de données cyber.";
+        handleSuccess();
+      } else {
+        consoleBox.innerText = ">>> Executing script...\n[SyntaxError / LogicError] Conditions not fully met.";
+        fb.className = "feedback show bad";
+        fb.innerText = "Le script ne remplit pas l'objectif demandé. Vérifie le nom des variables.";
+        handleFailure(`Python Challenge: ${c.title}`);
+      }
+    }
+
+    function nextPythonChallenge() {
+      currentPythonChallengeIdx = (currentPythonChallengeIdx + 1) % pythonChallenges.length;
+      renderPythonChallenge();
+    }
+
+    // INCIDENT ANALYSIS
+    function incidentAnswer(btn, isCorrect) {
+      const fb = document.getElementById('incidentFeedback');
+      if(isCorrect) {
+        btn.classList.add('correct');
+        fb.className = "feedback show good";
+        fb.innerText = "Correct ! Les tentatives répétées avec des identifiants invalides (admin, root) combinées à du brute force SSH indiquent une phase de Brute Force / Credential Guessing active depuis une IP externe.";
+        handleSuccess();
+      } else {
+        btn.classList.add('wrong');
+        fb.className = "feedback show bad";
+        fb.innerText = "Incorrect. Analysez la récurrence des codes HTTP 401 et des échecs de mots de passe de comptes administratifs.";
+        handleFailure("Analyse d'Incident: Case #001");
+      }
+    }
+
+    // CONSOLE DE SIMULATION ATTACK / DEFENSE ANIMÉE
+    function launchCyberAttack() {
+      const consoleBox = document.getElementById('attackConsole');
+      consoleBox.innerText = "[*] Launching simulation scenario...";
+      
+      setTimeout(() => { consoleBox.innerText += "\n[+] [STAGER 1] Port scan detected from external node."; }, 500);
+      setTimeout(() => { consoleBox.innerText += "\n[+] [STAGER 2] Firewalls trigger temporary alert logs."; }, 1200);
+      setTimeout(() => { 
+        consoleBox.innerText += "\n[🚨 CRITICAL] Intrusion Prevention System isolated the threat node natively."; 
+        handleSuccess();
+      }, 2000);
+    }
+
+    function clearAttackConsole() {
+      document.getElementById('attackConsole').innerText = "CyberPath Attack/Defense Console Ready...";
+    }
+
+    // CYBER ASSISTANT SIMULATEUR
+    function askAssistant(topic) {
+      const out = document.getElementById('assistantOutput');
+      if(topic === 'ssh') {
+        out.innerText = "== SSH Hardening Guide ==\n1. Désactiver l'accès root à distance dans /etc/ssh/sshd_config (PermitRootLogin no).\n2. Changer le port par défaut 22 vers un port alternatif (ex: 2222).\n3. Utiliser uniquement l'authentification par clés privées/publiques cryptographiques.";
+      } else if (topic === 'vlan') {
+        out.innerText = "== Cisco VLAN & Trunking ==\n- Les VLANs découpent un commutateur physique en plusieurs réseaux logiques isolés.\n- La commande `switchport mode trunk` permet de lier un routeur ou un switch en encapsulant les paquets avec le protocole IEEE 802.1Q.";
+      } else if (topic === 'cron') {
+        out.innerText = "== Python & Cron Automation ==\n- Créez votre script d'analyse de log (parser.py).\n- Planifiez son exécution automatique toutes les heures via le planificateur Linux (crontab -e) :\n  0 * * * * /usr/bin/python3 /home/muaz/parser.py";
+      }
+    }
+
+    // OPTIONS DE LA BARRE SUPÉRIEURE
+    function toggleLang() {
+      state.lang = state.lang === 'FR' ? 'EN' : 'FR';
+      document.getElementById('langBtn').innerText = `LANG: ${state.lang}`;
+      
+      // Traduction dynamique simple basée sur les attributs data-*
+      document.querySelectorAll('[data-fr]').forEach(el => {
+        if(state.lang === 'FR') {
+          el.innerText = el.getAttribute('data-fr');
+        } else {
+          el.innerText = el.getAttribute('data-en');
+        }
+      });
+    }
+
+    function exportProgress() {
+      alert(`=== PROGRESS REPORT FOR MUAZ ===\nLevel: ${state.currentLevel}\nCompletion: ${state.progress}%\nCorrect Steps: ${state.score}\nErrors: ${state.errors}`);
+    }
+
+    function resetAll() {
+      if(confirm("Réinitialiser le simulateur ?")) {
+        state = { progress: 0, score: 0, errors: 0, streak: 0, currentLevel: 'START', threatLevel: 'LOW', lang: 'FR', mistakes: [] };
+        currentLinuxMissionIdx = 0;
+        currentPythonChallengeIdx = 0;
+        currentDir = "~";
+        document.getElementById('terminalScreen').innerText = "Welcome Muaz 👋\nType \"help\" to start.";
+        updateDashboard();
+        renderLinuxMission();
+        renderPythonChallenge();
+        renderMistakes();
+        clearAttackConsole();
+      }
+    }
+
+    // INITIALISATION GÉNÉRALE AU CHARGEMENT DE LA PAGE
+    window.onload = function() {
+      updateDashboard();
+      renderLinuxMission();
+      renderPythonChallenge();
+      
+      // Configuration des blocs de quiz
+      setupQuiz('networkQuiz', networkQuestions, 'Cisco Network');
+      setupQuiz('cyberQuiz', cyberQuestions, 'Security Fundamentals');
+      setupQuiz('interviewBox', interviewQuestions, 'SOC Recruteur');
+    };
   </script>
 </body>
 </html>
