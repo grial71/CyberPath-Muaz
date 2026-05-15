@@ -1325,6 +1325,115 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
       createCyberSimulator();
     }, 1200);
 
+
+
+// ===== PYTHON SECURITY AUTOMATION LAB =====
+
+const pythonChallenges = [
+  {
+    title: 'Python Challenge 1',
+    instruction: 'Afficher un message de scan réseau en Python.',
+    answer: 'print("Scanning network...")'
+  },
+  {
+    title: 'Python Challenge 2',
+    instruction: 'Créer une variable ip contenant 192.168.1.1',
+    answer: 'ip = "192.168.1.1"'
+  },
+  {
+    title: 'Python Challenge 3',
+    instruction: 'Afficher une alerte de sécurité.',
+    answer: 'print("Security Alert")'
+  }
+];
+
+let currentPythonChallenge = 0;
+
+function createPythonLab() {
+  const section = document.createElement('section');
+  section.className = 'panel active';
+  section.style.marginTop = '20px';
+
+  section.innerHTML = `
+    <h2 class="title"><i class="fab fa-python"></i> Python Security Automation Lab</h2>
+
+    <div class="info">
+      Simulation Python orientée cybersécurité, automatisation Linux et analyse réseau.
+    </div>
+
+    <div class="box">
+      <h3 id="pythonChallengeTitle"></h3>
+      <p id="pythonInstruction"></p>
+
+      <textarea id="pythonCode" placeholder="Écris ton code Python ici..."></textarea>
+
+      <div class="controls">
+        <button class="btn green" onclick="validatePythonChallenge()">Exécuter</button>
+        <button class="btn blue" onclick="nextPythonChallenge()">Challenge suivant</button>
+      </div>
+
+      <div id="pythonFeedback" class="feedback"></div>
+
+      <div style="margin-top:20px;background:#050505;color:#00ff88;padding:15px;border-radius:15px;font-family:monospace;min-height:120px;" id="pythonConsole">
+        Python Security Console Ready...
+      </div>
+    </div>
+  `;
+
+  document.querySelector('main').appendChild(section);
+  renderPythonChallenge();
+}
+
+function renderPythonChallenge() {
+  const challenge = pythonChallenges[currentPythonChallenge];
+
+  document.getElementById('pythonChallengeTitle').textContent = challenge.title;
+  document.getElementById('pythonInstruction').textContent = challenge.instruction;
+  document.getElementById('pythonCode').value = '';
+}
+
+function validatePythonChallenge() {
+  const challenge = pythonChallenges[currentPythonChallenge];
+  const code = document.getElementById('pythonCode').value.trim();
+  const feedback = document.getElementById('pythonFeedback');
+  const consoleBox = document.getElementById('pythonConsole');
+
+  if(code === challenge.answer) {
+    feedback.className = 'feedback good';
+    feedback.style.display = 'block';
+    feedback.innerHTML = '✅ Python challenge réussi.';
+
+    const line = document.createElement('div');
+    line.textContent = '[SUCCESS] Python automation validated';
+    consoleBox.appendChild(line);
+  } else {
+    feedback.className = 'feedback bad';
+    feedback.style.display = 'block';
+    feedback.innerHTML = `❌ Code attendu : <strong>${challenge.answer}</strong>`;
+
+    const line = document.createElement('div');
+    line.style.color = '#ff5555';
+    line.textContent = '[ERROR] Invalid Python syntax or command';
+    consoleBox.appendChild(line);
+  }
+
+  consoleBox.scrollTop = consoleBox.scrollHeight;
+}
+
+function nextPythonChallenge() {
+  currentPythonChallenge++;
+
+  if(currentPythonChallenge >= pythonChallenges.length) {
+    currentPythonChallenge = 0;
+  }
+
+  renderPythonChallenge();
+}
+
+setTimeout(() => {
+  createPythonLab();
+}, 1800);
+
 </script>
 </body>
 </html>
