@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
   <title>CyberPath-Muaz Ultimate | Linux · Python · Cisco · Cybersecurity</title>
+=======
+  <title>CyberPath-Muaz V6 Fixed | SOC & Incident Analysis Lab</title>
+>>>>>>> e9b24e1 (Fix navigation buttons with fallback script)
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
@@ -635,12 +639,50 @@
       header{padding-top:34px}
     }
   </style>
+
+  <!-- ✅ Navigation de secours placée dans le HEAD
+       Elle garantit que les boutons principaux fonctionnent même si un script plus bas se bloque. -->
+  <script>
+    function showPanel(id, btn) {
+      document.querySelectorAll('.panel').forEach(function(panel) {
+        panel.classList.remove('active');
+      });
+
+      document.querySelectorAll('#mainNav button').forEach(function(button) {
+        button.classList.remove('active');
+      });
+
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      if (btn) {
+        btn.classList.add('active');
+      }
+    }
+
+    function showPanelById(id) {
+      const buttons = Array.from(document.querySelectorAll('#mainNav button'));
+      const targetButton = buttons.find(function(button) {
+        const action = button.getAttribute('onclick') || '';
+        return action.includes("'" + id + "'") || action.includes('"' + id + '"');
+      });
+
+      showPanel(id, targetButton || null);
+    }
+  </script>
 </head>
 <body>
   <div class="matrix-rain"></div>
 
   <div class="topbar">
+<<<<<<< HEAD
     <div class="brand-mini">CyberPath-Muaz Ultimate</div>
+=======
+    <div class="brand-mini">CyberPath-Muaz V6 Fixed</div>
+>>>>>>> e9b24e1 (Fix navigation buttons with fallback script)
     <div class="top-actions">
       <button class="primary" onclick="toggleLang()" id="langBtn">FR / EN</button>
       <button class="cyan" onclick="exportProgress()">Export Progress</button>
@@ -687,10 +729,24 @@
     </nav>
 
     <section id="home" class="panel active">
+<<<<<<< HEAD
       <h2 class="title">🚀 CyberPath-Muaz Ultimate</h2>
       <p class="subtitle" data-fr="Ce simulateur n’est pas une formation de débutant : c’est un laboratoire personnalisé pour un profil réseau qui veut progresser vers Linux, Python et la cybersécurité." data-en="This simulator is not beginner training: it is a personalized lab for a network profile moving toward Linux, Python and cybersecurity.">
         Ce simulateur n’est pas une formation de débutant : c’est un laboratoire personnalisé pour un profil réseau qui veut progresser vers Linux, Python et la cybersécurité.
       </p>
+=======
+      <h2 class="title">🚀 CyberPath-Muaz V6 Fixed</h2>
+      <p class="subtitle" data-fr="Cette version est corrigée : les boutons fonctionnent, les chaînes JavaScript multilignes sont sécurisées avec des retours à la ligne valides." data-en="This version is fixed: buttons work, multiline JavaScript strings are secured with valid line breaks.">Cette version est corrigée : les boutons fonctionnent, les chaînes JavaScript multilignes sont sécurisées avec des retours à la ligne valides.</p>
+      <div class="grid">
+        <div class="card"><small>Blue Team Path</small><h3>📊 SOC Dashboard</h3><p>Alertes simulées, niveau de menace, trafic réseau, firewall et radar cyber.</p></div>
+        <div class="card"><small>Priority 01</small><h3>🐧 Linux Real Lab</h3><p>Commandes, logs, permissions, services, réseau Linux et réflexes sécurité.</p></div>
+        <div class="card"><small>Priority 02</small><h3>🌐 Cisco / Network</h3><p>IP, VLAN, DNS, DHCP, routing, firewall, VPN et troubleshooting.</p></div>
+        <div class="card"><small>Priority 03</small><h3>🐍 Python Automation</h3><p>Scripts pour analyser logs, automatiser et structurer la pensée cyber.</p></div>
+        <div class="card"><small>Priority 04</small><h3>🧪 Incident Analysis</h3><p>Étude défensive de scénarios : brute force SSH, MFA absent, serveur exposé.</p></div>
+        <div class="card"><small>Language</small><h3>🇫🇷 FR / 🇬🇧 EN</h3><p>Vocabulaire technique bilingue pour recruteurs, formation et progression professionnelle.</p></div>
+      </div>
+    </section>
+>>>>>>> e9b24e1 (Fix navigation buttons with fallback script)
 
       <div class="grid">
         <div class="card"><small>Priority 01</small><h3>🐧 Linux Mastery</h3><p data-fr="Commandes, permissions, fichiers, logs, services, réseau Linux et réflexes cybersécurité." data-en="Commands, permissions, files, logs, services, Linux networking and cybersecurity reflexes.">Commandes, permissions, fichiers, logs, services, réseau Linux et réflexes cybersécurité.</p></div>
@@ -843,6 +899,7 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
     </section>
   </main>
 
+<<<<<<< HEAD
   <footer>CyberPath-Muaz Ultimate Edition · Personalized IT Security Learning Simulator · Local offline version</footer>
 
   <script>
@@ -854,6 +911,14 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
     };
 
     const quiz = {
+=======
+  <footer>CyberPath-Muaz V6 Fixed · SOC & Incident Analysis Lab · Local offline training simulator</footer>
+
+  <script>
+    const app={lang:'fr',startTime:Date.now(),state:JSON.parse(localStorage.getItem('cyberpath_muaz_v6')||'{"score":0,"errors":0,"answered":0,"streak":0,"mistakes":[],"terminalPoints":0,"socAlerts":0}'),current:{linux:0,network:0,python:0,cyber:0},mission:0,py:0};
+
+    const quiz={
+>>>>>>> e9b24e1 (Fix navigation buttons with fallback script)
       linux:[
         {tag:'Linux', q:{en:'Which command lists files and folders?',fr:'Quelle commande liste les fichiers et dossiers ?'}, options:['ls','pwd','mkdir','chmod'], correct:0, exp:{en:'ls lists files and directories.',fr:'ls affiche les fichiers et dossiers.'}},
         {tag:'Linux', q:{en:'Which command shows the current directory?',fr:'Quelle commande affiche le dossier actuel ?'}, options:['pwd','cat','grep','sudo'], correct:0, exp:{en:'pwd means print working directory.',fr:'pwd signifie afficher le dossier de travail actuel.'}},
@@ -883,6 +948,7 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
         {tag:'Defense', q:{en:'What should you do with suspicious attachments?',fr:'Que faire avec une pièce jointe suspecte ?'}, options:['Do not open; verify first','Open quickly','Forward to everyone','Disable the antivirus'], correct:0, exp:{en:'Verify before opening suspicious attachments.',fr:'Il faut vérifier avant d’ouvrir une pièce jointe suspecte.'}}
       ]
     };
+<<<<<<< HEAD
 
     const flashcards = [
       {front:'ls', back:'List files and folders · Lister fichiers et dossiers'},
@@ -1435,5 +1501,327 @@ setTimeout(() => {
 }, 1800);
 
 </script>
+=======
+
+    const missions=[
+      {title:'Mission 1 · Navigation',objective:'List files in the current directory.',answer:'ls',exp:'ls lists files and folders.'},
+      {title:'Mission 2 · Location',objective:'Show the current directory.',answer:'pwd',exp:'pwd prints the working directory.'},
+      {title:'Mission 3 · Logs',objective:'Search failed attempts in auth.log.',answer:'grep Failed auth.log',exp:'grep searches text patterns inside files.'},
+      {title:'Mission 4 · Network',objective:'Display network interfaces.',answer:'ip addr',alt:'ip a',exp:'ip addr shows interfaces and IP addresses.'},
+      {title:'Mission 5 · Permissions',objective:'Change file permission example to owner-only read/write.',answer:'chmod 600 file.txt',exp:'chmod changes file permissions.'}
+    ];
+
+    const pyChallenges=[
+      {title:'Python Challenge 1',instruction:'Display a network scan message.',answer:'print("Scanning network...")'},
+      {title:'Python Challenge 2',instruction:'Create a variable ip containing 192.168.1.1',answer:'ip = "192.168.1.1"'},
+      {title:'Python Challenge 3',instruction:'Display a security alert.',answer:'print("Security Alert")'},
+      {title:'Python Challenge 4',instruction:'Create a list named ports with 22, 80, 443',answer:'ports = [22, 80, 443]'},
+      {title:'Python Challenge 5',instruction:'Check if the word Failed exists in a log line.',answer:'if "Failed" in line:'}
+    ];
+
+    const flashcards=[
+      ['ls','List files and folders · Lister fichiers et dossiers'],
+      ['grep','Search text patterns inside files · Rechercher du texte'],
+      ['chmod','Change file permissions · Modifier permissions'],
+      ['DNS','Domain Name System: name → IP'],
+      ['DHCP','Automatic IP configuration'],
+      ['VLAN','Logical network segmentation'],
+      ['SSH','Secure Shell remote access'],
+      ['Python','Automation, scripting, log analysis'],
+      ['Firewall','Filters network traffic'],
+      ['Brute Force','Repeated password guessing attempts']
+    ];
+
+    const cyberLogs=[
+      '[INFO] Initializing network scan...',
+      '[INFO] Checking TCP ports...',
+      '[WARNING] SSH attempt detected on 192.168.1.14',
+      '[INFO] Reading Linux auth logs...',
+      '[ALERT] Multiple failed login attempts detected',
+      '[INFO] Firewall inspection active...',
+      '[SUCCESS] Threat isolated successfully',
+      '[SECURE] No critical vulnerability detected'
+    ];
+
+    const fs={
+      path:['home','muaz'],
+      files:{
+        '/home/muaz':['linux','python','network','logs','notes.txt'],
+        '/home/muaz/logs':['auth.log','syslog'],
+        '/home/muaz/linux':['permissions.txt','commands.txt'],
+        '/home/muaz/python':['scanner.py','log_parser.py'],
+        '/home/muaz/network':['dns.txt','vlan.txt']
+      },
+      content:{
+        '/home/muaz/notes.txt':'CyberPath notes: Linux first, then Network, Python and Cybersecurity.',
+        '/home/muaz/logs/auth.log':'May 15 10:12 Failed password for root from 185.77.21.9
+May 15 10:13 Failed password for admin from 185.77.21.9
+May 15 10:14 Accepted password for muaz from 192.168.1.22',
+        '/home/muaz/logs/syslog':'systemd started ssh.service
+NetworkManager connected eth0
+kernel: firewall rule loaded',
+        '/home/muaz/linux/permissions.txt':'r = read, w = write, x = execute. chmod changes permissions.',
+        '/home/muaz/linux/commands.txt':'pwd, ls, cd, cat, grep, tail, chmod, ip addr, ping, systemctl',
+        '/home/muaz/python/scanner.py':'for host in hosts:
+    print("Checking", host)',
+        '/home/muaz/python/log_parser.py':'with open("auth.log") as f:
+    for line in f:
+        if "Failed" in line:
+            print(line)',
+        '/home/muaz/network/dns.txt':'DNS resolves domain names into IP addresses.',
+        '/home/muaz/network/vlan.txt':'VLANs separate networks logically.'
+      }
+    };
+
+    function save(){localStorage.setItem('cyberpath_muaz_v6',JSON.stringify(app.state))}
+
+    function updateDashboard(){
+      const progress=Math.min(100,Math.round((app.state.answered+(app.state.terminalPoints||0))/45*100));
+      document.getElementById('progress').textContent=progress+'%';
+      document.getElementById('score').textContent=app.state.score;
+      document.getElementById('errors').textContent=app.state.errors;
+      document.getElementById('streak').textContent=app.state.streak;
+      let level='START';
+      if(app.state.score>=5)level='LINUX';
+      if(app.state.score>=10)level='NETWORK';
+      if(app.state.score>=16)level='CYBER';
+      if(app.state.score>=24)level='SOC READY';
+      document.getElementById('level').textContent=level;
+      document.getElementById('threatLevel').textContent=(app.state.socAlerts||0)>2?'HIGH':(app.state.socAlerts||0)>0?'MED':'LOW';
+      save();
+      renderMistakes();
+    }
+
+    function showPanel(id,btn){
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if(btn)btn.classList.add('active');
+    }
+
+    function showPanelById(id){
+      const btn=[...document.querySelectorAll('#mainNav button')].find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes(`'${id}'`));
+      showPanel(id,btn);
+      document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function renderQuiz(type){
+      const box=document.getElementById(type+'Quiz');
+      const list=quiz[type];
+      const i=app.current[type]%list.length;
+      const item=list[i];
+      box.innerHTML=`<div class="question-meta"><span class="tag">${item.tag}</span><strong>${i+1} / ${list.length}</strong></div><div class="progress"><div class="bar" style="width:${(i/list.length)*100}%"></div></div><h3 class="question-title">${item.q.en}</h3><div class="translation">🇫🇷 ${item.q.fr}</div>${item.options.map((op,idx)=>`<button class="option" onclick="answerQuiz('${type}',${idx})">${op}</button>`).join('')}<div id="${type}Feedback" class="feedback"></div>`;
+    }
+
+    function answerQuiz(type,index){
+      const list=quiz[type];
+      const item=list[app.current[type]%list.length];
+      const box=document.getElementById(type+'Quiz');
+      const buttons=box.querySelectorAll('.option');
+      buttons.forEach((b,i)=>{b.disabled=true;if(i===item.correct)b.classList.add('correct');if(i===index&&index!==item.correct)b.classList.add('wrong')});
+      const fb=document.getElementById(type+'Feedback');
+      fb.classList.add('show');
+      if(index===item.correct){
+        app.state.score++;app.state.streak++;
+        fb.classList.add('good');
+        fb.innerHTML=`✅ Correct<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
+      }else{
+        app.state.errors++;app.state.streak=0;
+        fb.classList.add('bad');
+        fb.innerHTML=`❌ Review<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
+        app.state.mistakes.push({module:type,question:item.q.en,questionFr:item.q.fr,correct:item.options[item.correct],exp:item.exp.en});
+      }
+      app.state.answered++;app.current[type]++;updateDashboard();setTimeout(()=>renderQuiz(type),1900);
+    }
+
+    function renderMission(){
+      const m=missions[app.mission];
+      document.getElementById('missionCounter').textContent=`${app.mission+1} / ${missions.length}`;
+      document.getElementById('missionTitle').textContent=m.title;
+      document.getElementById('missionObjective').textContent=m.objective;
+      document.getElementById('missionAnswer').value='';
+      document.getElementById('missionFeedback').className='feedback';
+      document.getElementById('missionFeedback').innerHTML='';
+    }
+
+    function validateMission(){
+      const m=missions[app.mission];
+      const input=document.getElementById('missionAnswer').value.trim();
+      const fb=document.getElementById('missionFeedback');
+      fb.classList.add('show');
+      if(input.toLowerCase()===m.answer.toLowerCase()||(m.alt&&input.toLowerCase()===m.alt.toLowerCase())){
+        fb.classList.add('good');fb.innerHTML='✅ Mission complete.<br>'+m.exp;app.state.score++;app.state.streak++;
+      }else{
+        fb.classList.add('bad');fb.innerHTML=`❌ Expected: <strong>${m.answer}</strong><br>${m.exp}`;app.state.errors++;app.state.streak=0;app.state.mistakes.push({module:'linux mission',question:m.objective,correct:m.answer,exp:m.exp});
+      }
+      app.state.answered++;updateDashboard();
+    }
+
+    function nextMission(){app.mission=(app.mission+1)%missions.length;renderMission()}
+
+    function renderPythonChallenge(){
+      const c=pyChallenges[app.py];
+      document.getElementById('pythonCounter').textContent=`${app.py+1} / ${pyChallenges.length}`;
+      document.getElementById('pythonChallengeTitle').textContent=c.title;
+      document.getElementById('pythonInstruction').textContent=c.instruction;
+      document.getElementById('pythonCode').value='';
+      document.getElementById('pythonFeedback').className='feedback';
+      document.getElementById('pythonFeedback').innerHTML='';
+    }
+
+    function validatePythonChallenge(){
+      const c=pyChallenges[app.py];
+      const code=document.getElementById('pythonCode').value.trim();
+      const fb=document.getElementById('pythonFeedback');
+      const consoleBox=document.getElementById('pythonConsole');
+      fb.classList.add('show');
+      if(code===c.answer){
+        fb.classList.add('good');fb.innerHTML='✅ Python challenge validated.';
+        consoleBox.textContent+='
+[SUCCESS] '+c.title;
+        app.state.score++;app.state.streak++;
+      }else{
+        fb.classList.add('bad');fb.innerHTML=`❌ Expected: <strong>${c.answer}</strong>`;
+        consoleBox.textContent+='
+[ERROR] Invalid Python command';
+        app.state.errors++;app.state.streak=0;app.state.mistakes.push({module:'python challenge',question:c.instruction,correct:c.answer,exp:'Python syntax must match the expected answer.'});
+      }
+      app.state.answered++;updateDashboard();
+    }
+
+    function nextPythonChallenge(){app.py=(app.py+1)%pyChallenges.length;renderPythonChallenge()}
+
+    function currentPath(){return'/'+fs.path.join('/')}
+    function resolvePath(p){if(!p||p==='.')return currentPath();if(p==='~')return'/home/muaz';if(p.startsWith('/'))return p;if(p==='..')return'/'+fs.path.slice(0,-1).join('/');return currentPath()+'/'+p}
+
+    function terminalCommand(event){
+      if(event.key!=='Enter')return;
+      const input=document.getElementById('terminalInput'),screen=document.getElementById('terminalScreen'),cmdLine=input.value.trim();
+      input.value='';
+      if(!cmdLine)return;
+      const parts=cmdLine.split(' '),cmd=parts[0],arg=parts.slice(1).join(' ');
+      let output='';
+      if(cmd==='help')output='Commands: pwd, ls, cd, cat, grep, tail, chmod, whoami, ip addr, ping, systemctl, sudo, clear';
+      else if(cmd==='pwd')output=currentPath();
+      else if(cmd==='ls')output=(fs.files[currentPath()]||['No files']).join('  ');
+      else if(cmd==='cd'){
+        const target=resolvePath(arg||'~');
+        if(fs.files[target]){fs.path=target.split('/').filter(Boolean);output=''}else output='cd: no such directory: '+arg;
+      }
+      else if(cmd==='cat'){
+        const target=resolvePath(arg);output=fs.content[target]||'cat: file not found: '+arg;
+      }
+      else if(cmd==='tail'){
+        const file=parts[parts.length-1];const target=resolvePath(file);output=fs.content[target]||'tail: file not found: '+file;
+      }
+      else if(cmd==='grep'){
+        const pattern=parts[1],file=parts[2],target=resolvePath(file),content=fs.content[target];
+        output=content?content.split('
+').filter(l=>l.toLowerCase().includes((pattern||'').toLowerCase())).join('
+')||'No match':'grep: file not found';
+        if(pattern&&pattern.toLowerCase()==='failed')awardTerminalPoint();
+      }
+      else if(cmd==='chmod')output='Permissions changed (simulation). Example: chmod 600 file.txt';
+      else if(cmd==='whoami')output='muaz';
+      else if(cmd==='ip'&&(parts[1]==='addr'||parts[1]==='a')){output='eth0: inet 192.168.1.22/24
+lo: inet 127.0.0.1/8';awardTerminalPoint()}
+      else if(cmd==='ping')output=`PING ${arg||'8.8.8.8'}: 64 bytes from ${arg||'8.8.8.8'} icmp_seq=1 ttl=57 time=18.4 ms`;
+      else if(cmd==='systemctl')output='ssh.service active (running)
+NetworkManager.service active (running)';
+      else if(cmd==='sudo')output='sudo: educational simulator only. Good reflex: use sudo carefully.';
+      else if(cmd==='clear'){screen.textContent='';return}
+      else output=`Command not found: ${cmd}. Type help.`;
+      screen.textContent+=`
+
+muaz@cyberpath:${currentPath()}$ ${cmdLine}
+${output}`;
+      screen.scrollTop=screen.scrollHeight;
+    }
+
+    function awardTerminalPoint(){app.state.terminalPoints=Math.min((app.state.terminalPoints||0)+1,8);updateDashboard()}
+
+    function simulateSocAlert(){
+      app.state.socAlerts=(app.state.socAlerts||0)+1;
+      document.getElementById('socAlerts').textContent=app.state.socAlerts;
+      document.getElementById('socThreat').textContent=app.state.socAlerts>2?'HIGH':'MED';
+      document.getElementById('socTraffic').textContent=128+app.state.socAlerts*47;
+      document.getElementById('socLogs').textContent+=`
+[ALERT] Suspicious SSH activity from 185.77.21.${app.state.socAlerts+8}`;
+      updateDashboard();
+    }
+
+    function resolveSocAlert(){
+      if((app.state.socAlerts||0)>0)app.state.socAlerts--;
+      document.getElementById('socAlerts').textContent=app.state.socAlerts;
+      document.getElementById('socThreat').textContent=app.state.socAlerts>2?'HIGH':app.state.socAlerts>0?'MED':'LOW';
+      document.getElementById('socLogs').textContent+='
+[SUCCESS] Alert triaged and documented';
+      app.state.score++;
+      updateDashboard();
+    }
+
+    function incidentAnswer(btn,isCorrect){
+      document.querySelectorAll('#incident .option').forEach(b=>b.disabled=true);
+      const fb=document.getElementById('incidentFeedback');fb.classList.add('show');
+      if(isCorrect){btn.classList.add('correct');fb.classList.add('good');fb.innerHTML='✅ Correct. Pattern matches brute force / credential guessing. Defensive actions: preserve logs, block IP if needed, enforce MFA, harden SSH.';app.state.score+=2;app.state.streak++}
+      else{btn.classList.add('wrong');fb.classList.add('bad');fb.innerHTML='❌ Not the best hypothesis. Repeated failed logins point to brute force or credential guessing.';app.state.errors++;app.state.streak=0}
+      app.state.answered++;updateDashboard();
+    }
+
+    function launchCyberAttack(){
+      const box=document.getElementById('attackConsole');box.textContent='';let i=0;
+      const interval=setInterval(()=>{if(i>=cyberLogs.length){clearInterval(interval);app.state.score++;updateDashboard();return}box.textContent+='
+'+cyberLogs[i];box.scrollTop=box.scrollHeight;i++},900);
+    }
+    function clearAttackConsole(){document.getElementById('attackConsole').textContent='CyberPath Attack/Defense Console Ready...'}
+
+    function askAssistant(){
+      const q=document.getElementById('assistantInput').value.toLowerCase();const out=document.getElementById('assistantOutput');
+      let a='I can explain SSH, VLAN, logs, Python automation and Linux security.';
+      if(q.includes('ssh'))a='SSH is a secure remote access protocol. Defensive focus: disable root login, use keys, MFA, fail2ban and firewall restrictions.';
+      else if(q.includes('vlan'))a='A VLAN separates networks logically. It helps isolate users, servers and sensitive systems.';
+      else if(q.includes('log'))a='Logs are evidence. In incident response, preserve logs, search failed attempts, identify source IP and timeline.';
+      else if(q.includes('python'))a='Python helps automate log analysis, parse IPs, count failed attempts and generate reports.';
+      else if(q.includes('secure'))a='Linux hardening: update system, restrict SSH, least privilege, firewall, logs, backups and monitoring.';
+      out.innerHTML=a;out.className='feedback show good';
+    }
+
+    function renderFlashcards(){document.getElementById('flashGrid').innerHTML=flashcards.map(c=>`<div class="flash" onclick="this.classList.toggle('flipped')"><div class="flash-inner"><div class="flash-front"><strong>${c[0]}</strong><small>Click to flip</small></div><div class="flash-back"><strong>${c[0]}</strong><small>${c[1]}</small></div></div></div>`).join('')}
+
+    function renderMistakes(){
+      const box=document.getElementById('mistakesBox');if(!box)return;
+      if(!app.state.mistakes.length){box.innerHTML='<div class="card"><h3>✅ No mistakes yet</h3><p>Errors will appear here for smart revision.</p></div>';return}
+      box.innerHTML=app.state.mistakes.slice().reverse().map(m=>`<div class="mistake-card"><strong>Module:</strong> ${m.module}<br><strong>Question:</strong> ${m.question}<br>${m.questionFr?`<strong>FR:</strong> ${m.questionFr}<br>`:''}<strong>Correct:</strong> ${m.correct}<br><strong>Explanation:</strong> ${m.exp}</div>`).join('');
+    }
+
+    function evaluateInterview(){
+      const text=document.getElementById('interviewText').value.trim();const fb=document.getElementById('interviewFeedback');let score=0;const tips=[];
+      if(text.length>80)score+=25;else tips.push('Add more detail about experience.');
+      if(/network|réseau|cisco|linux|python|cyber/i.test(text))score+=35;else tips.push('Mention network/Cisco/Linux/Python/Cybersecurity.');
+      if(/goal|objectif|security|sécurité|cyber/i.test(text))score+=25;else tips.push('Explain the cybersecurity goal.');
+      if(/[.!?]/.test(text))score+=15;else tips.push('Use clear sentence punctuation.');
+      fb.classList.add('show');fb.classList.toggle('good',score>=70);fb.classList.toggle('bad',score<70);fb.innerHTML=`<strong>Structure score: ${score}/100</strong><br>${tips.length?tips.join('<br>'):'Strong structure. Clear and professional.'}`;
+    }
+
+    function toggleLang(){app.lang=app.lang==='fr'?'en':'fr';document.documentElement.lang=app.lang;document.getElementById('langBtn').textContent=app.lang==='fr'?'FR / EN':'EN / FR';document.querySelectorAll('[data-fr][data-en]').forEach(el=>{el.textContent=el.dataset[app.lang]})}
+
+    function exportProgress(){
+      const text=`CyberPath-Muaz V6 Fixed Progress
+Score: ${app.state.score}
+Errors: ${app.state.errors}
+Answered: ${app.state.answered}
+Streak: ${app.state.streak}
+Terminal Points: ${app.state.terminalPoints||0}
+SOC Alerts: ${app.state.socAlerts||0}
+Mistakes: ${app.state.mistakes.length}`;
+      const blob=new Blob([text],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cyberpath-muaz-v6-progress.txt';a.click();
+    }
+
+    function resetAll(){if(!confirm('Reset all progress?'))return;localStorage.removeItem('cyberpath_muaz_v6');location.reload()}
+
+    ['linux','network','python','cyber'].forEach(renderQuiz);
+    renderMission();renderPythonChallenge();renderFlashcards();renderMistakes();updateDashboard();setInterval(updateDashboard,60000);
+  </script>
+>>>>>>> e9b24e1 (Fix navigation buttons with fallback script)
 </body>
 </html>
