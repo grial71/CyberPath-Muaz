@@ -1238,9 +1238,91 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
       renderMission();
     }
 
+    // ===== CYBER ATTACK SIMULATOR =====
+
+    const cyberLogs = [
+      '[INFO] Initialisation du scan réseau...',
+      '[INFO] Analyse des ports TCP...',
+      '[WARNING] Tentative SSH détectée sur 192.168.1.14',
+      '[INFO] Analyse des logs système...',
+      '[ALERT] Multiple failed login attempts detected',
+      '[INFO] Firewall inspection active...',
+      '[SUCCESS] Threat isolated successfully',
+      '[INFO] Linux kernel stable',
+      '[INFO] Python security scanner loaded',
+      '[SECURE] No critical vulnerability detected'
+    ];
+
+    function createCyberSimulator() {
+      const simulator = document.createElement('section');
+      simulator.className = 'panel active';
+      simulator.style.marginTop = '20px';
+
+      simulator.innerHTML = `
+        <h2 class="title"><i class="fas fa-shield-halved"></i> Cyber Attack Simulator</h2>
+
+        <div class="info">
+          Simulation immersive de sécurité réseau Linux/Cybersecurity.
+          Analyse de logs, détection SSH, trafic réseau et supervision système.
+        </div>
+
+        <div style="background:#050505;border:2px solid #00e676;padding:20px;border-radius:18px;font-family:monospace;color:#00ff88;min-height:260px;overflow:auto;box-shadow:0 0 25px rgba(0,255,120,.18);" id="cyberConsole">
+          Initialisation du système CyberPath...
+        </div>
+
+        <div class="controls">
+          <button class="btn green" onclick="launchCyberAttack()">Lancer simulation</button>
+          <button class="btn orange" onclick="clearCyberConsole()">Reset console</button>
+        </div>
+      `;
+
+      document.querySelector('main').appendChild(simulator);
+    }
+
+    function launchCyberAttack() {
+      const consoleBox = document.getElementById('cyberConsole');
+      consoleBox.innerHTML = '';
+
+      let i = 0;
+
+      const interval = setInterval(() => {
+        if(i >= cyberLogs.length) {
+          clearInterval(interval);
+          return;
+        }
+
+        const line = document.createElement('div');
+        line.textContent = cyberLogs[i];
+
+        if(cyberLogs[i].includes('WARNING')) {
+          line.style.color = '#ffcc00';
+        }
+
+        if(cyberLogs[i].includes('ALERT')) {
+          line.style.color = '#ff4444';
+          line.style.fontWeight = 'bold';
+        }
+
+        if(cyberLogs[i].includes('SUCCESS') || cyberLogs[i].includes('SECURE')) {
+          line.style.color = '#00ff88';
+          line.style.fontWeight = 'bold';
+        }
+
+        consoleBox.appendChild(line);
+        consoleBox.scrollTop = consoleBox.scrollHeight;
+
+        i++;
+      }, 1200);
+    }
+
+    function clearCyberConsole() {
+      document.getElementById('cyberConsole').innerHTML = 'Console réinitialisée...';
+    }
+
     // Initialisation du mode mission
     setTimeout(() => {
       renderMission();
+      createCyberSimulator();
     }, 1200);
 
 </script>
