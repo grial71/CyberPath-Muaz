@@ -1155,6 +1155,94 @@ May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168
     renderMistakes();
     updateDashboard();
     setInterval(updateDashboard, 60000);
-  </script>
+  
+
+    // ===== CYBERPATH V3 - MISSIONS LINUX =====
+    const linuxMissions = [
+      {
+        title: "Mission 1 - Navigation Linux",
+        objective: "Trouver la commande permettant d'afficher les fichiers d'un dossier.",
+        command: "ls",
+        explanation: "La commande 'ls' permet de lister les fichiers et dossiers."
+      },
+      {
+        title: "Mission 2 - Changer de dossier",
+        objective: "Trouver la commande permettant de changer de répertoire.",
+        command: "cd",
+        explanation: "La commande 'cd' permet de naviguer entre les dossiers Linux."
+      },
+      {
+        title: "Mission 3 - Vérifier l'adresse IP",
+        objective: "Afficher les interfaces réseau Linux.",
+        command: "ip a",
+        explanation: "La commande 'ip a' affiche les interfaces et adresses IP."
+      }
+    ];
+
+    let currentMission = 0;
+
+    function renderMission() {
+      const mission = linuxMissions[currentMission];
+
+      const missionHTML = `
+        <section class="panel active" style="margin-top:20px;">
+          <h2 class="title"><i class="fas fa-terminal"></i> Linux Mission Mode</h2>
+
+          <div class="info">
+            <strong>${mission.title}</strong><br>
+            ${mission.objective}
+          </div>
+
+          <div class="box">
+            <label><strong>Terminal Linux :</strong></label>
+            <input type="text" id="linuxAnswer" placeholder="Tape ici la commande Linux...">
+
+            <div class="controls">
+              <button class="btn green" onclick="validateMission()">Valider</button>
+              <button class="btn blue" onclick="nextMission()">Mission suivante</button>
+            </div>
+
+            <div id="missionFeedback" class="feedback"></div>
+          </div>
+        </section>
+      `;
+
+      const container = document.createElement('div');
+      container.innerHTML = missionHTML;
+      document.querySelector('main').appendChild(container);
+    }
+
+    function validateMission() {
+      const mission = linuxMissions[currentMission];
+      const input = document.getElementById('linuxAnswer').value.trim();
+      const feedback = document.getElementById('missionFeedback');
+
+      if(input.toLowerCase() === mission.command.toLowerCase()) {
+        feedback.className = 'feedback good';
+        feedback.style.display = 'block';
+        feedback.innerHTML = `✅ Correct !<br>${mission.explanation}`;
+      } else {
+        feedback.className = 'feedback bad';
+        feedback.style.display = 'block';
+        feedback.innerHTML = `❌ Incorrect.<br>Commande attendue : <strong>${mission.command}</strong>`;
+      }
+    }
+
+    function nextMission() {
+      currentMission++;
+      if(currentMission >= linuxMissions.length) {
+        currentMission = 0;
+      }
+
+      document.querySelectorAll('.panel.active')[document.querySelectorAll('.panel.active').length - 1].remove();
+      renderMission();
+    }
+
+    // Initialisation du mode mission
+    setTimeout(() => {
+      renderMission();
+    }, 1200);
+
+</script>
 </body>
 </html>
