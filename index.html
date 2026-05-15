@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberPath-Muaz Ultimate | Linux · Python · Cisco · Cybersecurity</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#020617;
+      --bg2:#07111f;
+      --panel:rgba(15,23,42,.86);
+      --panel2:rgba(17,32,58,.90);
+      --line:rgba(148,163,184,.18);
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --green:#00ff99;
+      --cyan:#00d9ff;
+      --blue:#2563eb;
+      --violet:#8b5cf6;
+      --orange:#f59e0b;
+      --red:#ef4444;
+      --yellow:#facc15;
+      --shadow:0 30px 90px rgba(0,0,0,.45);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      min-height:100vh;
+      color:var(--text);
+      font-family:'Inter',system-ui,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(0,255,153,.16), transparent 30%),
+        radial-gradient(circle at 85% 10%, rgba(0,217,255,.14), transparent 28%),
+        radial-gradient(circle at 50% 90%, rgba(139,92,246,.16), transparent 30%),
+        linear-gradient(135deg,#020617,#08111f 45%,#020617);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      background-image:
+        linear-gradient(rgba(0,255,153,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,217,255,.045) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.2));
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:-20%;
+      z-index:-2;
+      background:conic-gradient(from 180deg at 50% 50%, transparent, rgba(0,255,153,.08), transparent, rgba(0,217,255,.08), transparent);
+      animation:rotateGlow 28s linear infinite;
+      filter:blur(10px);
+    }
+
+    .matrix-rain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      opacity:.14;
+      background:
+        repeating-linear-gradient(90deg,
+          transparent 0 36px,
+          rgba(0,255,153,.10) 37px,
+          transparent 38px),
+        repeating-linear-gradient(180deg,
+          transparent 0 24px,
+          rgba(0,217,255,.06) 25px,
+          transparent 26px);
+      animation:matrixMove 20s linear infinite;
+    }
+
+    header{
+      position:relative;
+      padding:46px 18px 110px;
+      text-align:center;
+      overflow:hidden;
+      border-bottom:1px solid var(--line);
+    }
+
+    header::before{
+      content:"";
+      position:absolute;
+      width:600px;
+      height:600px;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:1px solid rgba(0,255,153,.18);
+      box-shadow:0 0 80px rgba(0,255,153,.10), inset 0 0 70px rgba(0,217,255,.08);
+      animation:pulseRing 4s ease-in-out infinite;
+    }
+
+    header::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg,transparent,rgba(255,255,255,.10),transparent);
+      animation:shine 8s linear infinite;
+    }
+
+    header>*{position:relative;z-index:2}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      padding:10px 14px;
+      background:rgba(2,6,23,.78);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .brand-mini{
+      font-family:'Orbitron',sans-serif;
+      font-weight:900;
+      color:var(--green);
+      letter-spacing:.5px;
+    }
+
+    .top-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid rgba(0,255,153,.42);
+      background:rgba(0,255,153,.08);
+      color:var(--green);
+      font-weight:900;
+      margin-bottom:18px;
+      box-shadow:0 0 30px rgba(0,255,153,.10);
+    }
+
+    h1{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(2.25rem,7vw,5.6rem);
+      line-height:1.02;
+      letter-spacing:-1px;
+      margin-bottom:16px;
+      text-transform:uppercase;
+    }
+
+    .gradient{
+      background:linear-gradient(90deg,var(--green),var(--cyan),#a7f3d0);
+      -webkit-background-clip:text;
+      color:transparent;
+      text-shadow:0 0 40px rgba(0,255,153,.18);
+    }
+
+    .hero-text{
+      max-width:980px;
+      margin:0 auto 24px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1.08rem;
+    }
+
+    .hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+
+    .container{
+      max-width:1440px;
+      margin:-60px auto 56px;
+      padding:0 18px;
+      position:relative;
+      z-index:5;
+    }
+
+    .dashboard{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:16px;
+      margin-bottom:22px;
+    }
+
+    .stat{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      text-align:center;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .stat::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg,transparent,rgba(0,255,153,.08),transparent);
+      transform:translateX(-100%);
+      animation:cardScan 8s infinite;
+    }
+
+    .stat strong{
+      display:block;
+      font-family:'Orbitron',sans-serif;
+      font-size:1.9rem;
+      color:var(--green);
+      margin-bottom:4px;
+    }
+
+    .stat span{color:var(--muted);font-size:.88rem}
+
+    nav{
+      display:flex;
+      justify-content:center;
+      gap:9px;
+      flex-wrap:wrap;
+      margin:22px 0;
+    }
+
+    button,.btn{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:12px 16px;
+      background:rgba(15,23,42,.82);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:900;
+      transition:.22s;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      font-family:'Inter',sans-serif;
+    }
+
+    button:hover,.btn:hover{
+      transform:translateY(-2px);
+      border-color:rgba(0,255,153,.65);
+      box-shadow:0 0 26px rgba(0,255,153,.10);
+    }
+
+    button.active,.primary{
+      background:linear-gradient(135deg,var(--green),#00b36b);
+      color:#02110a;
+      border-color:transparent;
+      box-shadow:0 12px 34px rgba(0,255,153,.18);
+    }
+
+    .danger{background:linear-gradient(135deg,var(--red),#991b1b);color:white;border-color:transparent}
+    .cyan{background:linear-gradient(135deg,var(--cyan),#0284c7);color:#001018;border-color:transparent}
+    .orange{background:linear-gradient(135deg,var(--orange),#b45309);color:#140b00;border-color:transparent}
+    .violet{background:linear-gradient(135deg,var(--violet),#4c1d95);color:white;border-color:transparent}
+
+    .panel{
+      display:none;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+      margin-bottom:22px;
+      animation:fade .35s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .panel::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      height:2px;
+      background:linear-gradient(90deg,transparent,var(--green),var(--cyan),transparent);
+      opacity:.85;
+    }
+
+    .panel.active{display:block}
+
+    .title{
+      font-family:'Orbitron',sans-serif;
+      font-size:clamp(1.45rem,3vw,2.2rem);
+      margin-bottom:10px;
+      letter-spacing:.4px;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:22px;
+      max-width:1050px;
+    }
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+
+    .card{
+      background:linear-gradient(180deg,rgba(17,24,39,.96),rgba(8,17,31,.96));
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      transition:.25s;
+      min-height:160px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{transform:translateY(-5px);border-color:rgba(0,217,255,.58)}
+
+    .card h3{color:var(--cyan);margin-bottom:10px;font-size:1.08rem}
+    .card p{color:var(--muted);line-height:1.65}
+    .card small{color:var(--green);font-weight:800}
+
+    .split{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+
+    .progress{
+      height:14px;
+      background:#111827;
+      border-radius:999px;
+      overflow:hidden;
+      margin:16px 0;
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .bar{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan));transition:.35s}
+
+    .quiz{
+      background:rgba(2,6,23,.45);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:24px;
+    }
+
+    .question-meta{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+
+    .tag{
+      display:inline-flex;
+      border:1px solid rgba(0,255,153,.32);
+      background:rgba(0,255,153,.08);
+      color:var(--green);
+      border-radius:999px;
+      padding:6px 10px;
+      font-size:.75rem;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .question-title{font-size:1.2rem;line-height:1.55;margin-bottom:8px}
+    .translation{color:var(--muted);line-height:1.6;margin-bottom:16px;border-left:3px solid rgba(0,217,255,.5);padding-left:12px}
+
+    .option{
+      width:100%;
+      display:block;
+      text-align:left;
+      margin:10px 0;
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.88);
+      color:var(--text);
+      cursor:pointer;
+      transition:.18s;
+      font-weight:700;
+    }
+
+    .option:hover{border-color:rgba(0,255,153,.7);transform:translateX(3px)}
+    .option.correct{background:rgba(0,255,153,.13)!important;border-color:var(--green)!important;color:#d1fae5}
+    .option.wrong{background:rgba(239,68,68,.13)!important;border-color:var(--red)!important;color:#fee2e2}
+    .option:disabled{cursor:not-allowed;opacity:.95}
+
+    .feedback{
+      margin-top:14px;
+      padding:14px;
+      border-radius:16px;
+      line-height:1.65;
+      background:rgba(15,23,42,.82);
+      border:1px solid var(--line);
+      display:none;
+    }
+
+    .feedback.show{display:block}
+    .feedback.good{border-left:5px solid var(--green)}
+    .feedback.bad{border-left:5px solid var(--red)}
+
+    .terminal{
+      background:#010409;
+      border:1px solid rgba(0,255,153,.34);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 0 45px rgba(0,255,153,.10), inset 0 0 40px rgba(0,217,255,.05);
+    }
+
+    .terminal-top{
+      background:#0b1220;
+      padding:12px 15px;
+      color:var(--muted);
+      border-bottom:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-size:.9rem;
+    }
+
+    .dots{display:flex;gap:7px;align-items:center}
+    .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .dot.red{background:#ff5f56}.dot.yellow{background:#ffbd2e}.dot.green{background:#27c93f}
+
+    .terminal-screen{
+      min-height:340px;
+      max-height:420px;
+      overflow:auto;
+      padding:18px;
+      font-family:Consolas,'Courier New',monospace;
+      color:#d1fae5;
+      line-height:1.65;
+      white-space:pre-wrap;
+      text-shadow:0 0 12px rgba(0,255,153,.10);
+    }
+
+    .terminal-input-wrap{display:flex;border-top:1px solid var(--line);background:#020617}
+    .prompt{padding:16px 0 16px 16px;color:var(--green);font-family:Consolas,monospace;white-space:nowrap}
+    .terminal input{
+      flex:1;
+      border:none;
+      outline:none;
+      background:#020617;
+      color:var(--green);
+      padding:16px;
+      font-family:Consolas,monospace;
+      font-size:1rem;
+    }
+
+    .topology{
+      background:rgba(2,6,23,.45);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .topology::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at center, rgba(0,217,255,.10), transparent 50%);
+      pointer-events:none;
+    }
+
+    .network-map{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:18px;
+      align-items:center;
+      position:relative;
+      z-index:2;
+    }
+
+    .node{
+      min-height:145px;
+      border-radius:22px;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      border:2px solid rgba(0,217,255,.45);
+      box-shadow:0 0 30px rgba(0,217,255,.12);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+      transition:.25s;
+    }
+
+    .node:hover{transform:translateY(-4px);border-color:var(--green);box-shadow:0 0 35px rgba(0,255,153,.16)}
+    .node .icon{font-size:2.1rem;margin-bottom:8px}
+    .node strong{font-size:.98rem}
+    .node small{color:var(--muted);margin-top:5px;line-height:1.4}
+
+    .packet{
+      position:absolute;
+      width:10px;height:10px;border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 18px var(--green);
+      top:50%;left:7%;
+      animation:packetMove 4s linear infinite;
+      z-index:1;
+    }
+
+    .scenario-card{
+      background:rgba(2,6,23,.48);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:22px;
+      margin-bottom:16px;
+    }
+
+    .logbox{
+      background:#020617;
+      border:1px solid rgba(0,255,153,.25);
+      border-radius:18px;
+      padding:16px;
+      font-family:Consolas,monospace;
+      color:#d1fae5;
+      line-height:1.55;
+      white-space:pre-wrap;
+      overflow:auto;
+      max-height:260px;
+      margin:12px 0;
+    }
+
+    .flash-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+    .flash{
+      min-height:170px;
+      perspective:1000px;
+    }
+    .flash-inner{
+      position:relative;
+      width:100%;height:100%;min-height:170px;
+      transform-style:preserve-3d;
+      transition:.6s;
+      cursor:pointer;
+    }
+    .flash.flipped .flash-inner{transform:rotateY(180deg)}
+    .flash-front,.flash-back{
+      position:absolute;inset:0;
+      backface-visibility:hidden;
+      border-radius:22px;
+      border:1px solid var(--line);
+      padding:20px;
+      background:linear-gradient(180deg,#111827,#08111f);
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .flash-front strong{color:var(--green);font-size:1.25rem;margin-bottom:8px}
+    .flash-front small,.flash-back small{color:var(--muted);line-height:1.55}
+    .flash-back{transform:rotateY(180deg);border-left:5px solid var(--cyan)}
+    .flash-back strong{color:var(--cyan);margin-bottom:8px}
+
+    .mistake-card{
+      background:rgba(2,6,23,.48);
+      border:1px solid var(--line);
+      border-left:5px solid var(--red);
+      border-radius:18px;
+      padding:16px;
+      line-height:1.65;
+      margin-bottom:12px;
+    }
+
+    .roadmap{display:grid;gap:14px}
+    .step{
+      background:rgba(2,6,23,.48);
+      border:1px solid var(--line);
+      border-left:5px solid var(--green);
+      border-radius:18px;
+      padding:18px;
+      line-height:1.65;
+    }
+
+    .language-box{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .frbox{border-left:5px solid var(--blue)}
+    .enbox{border-left:5px solid var(--green)}
+
+    .typing-area textarea{
+      width:100%;
+      min-height:140px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#020617;
+      color:var(--text);
+      padding:16px;
+      font-family:'Inter',sans-serif;
+      font-size:1rem;
+      outline:none;
+      resize:vertical;
+    }
+
+    .codebox{
+      background:#020617;
+      border:1px solid rgba(0,217,255,.22);
+      border-radius:18px;
+      padding:16px;
+      font-family:Consolas,monospace;
+      line-height:1.6;
+      color:#d1fae5;
+      overflow:auto;
+    }
+
+    footer{padding:36px 18px;text-align:center;color:var(--muted)}
+
+    @keyframes rotateGlow{to{transform:rotate(360deg)}}
+    @keyframes matrixMove{to{background-position:0 700px,700px 0}}
+    @keyframes pulseRing{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(.95)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.04)}}
+    @keyframes shine{from{transform:translateX(-50%)}to{transform:translateX(50%)}}
+    @keyframes cardScan{0%,60%{transform:translateX(-120%)}80%,100%{transform:translateX(120%)}}
+    @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes packetMove{0%{left:8%;opacity:.1}10%{opacity:1}90%{opacity:1}100%{left:92%;opacity:.1}}
+
+    @media(max-width:980px){
+      .split{grid-template-columns:1fr}
+      .network-map{grid-template-columns:1fr 1fr}
+      .language-box{grid-template-columns:1fr}
+    }
+
+    @media(max-width:640px){
+      .topbar{position:relative}
+      .panel{padding:18px;border-radius:22px}
+      .dashboard{grid-template-columns:1fr 1fr}
+      .network-map{grid-template-columns:1fr}
+      button,.btn{width:100%}
+      nav button{width:auto}
+      header{padding-top:34px}
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix-rain"></div>
+
+  <div class="topbar">
+    <div class="brand-mini">CyberPath-Muaz Ultimate</div>
+    <div class="top-actions">
+      <button class="primary" onclick="toggleLang()" id="langBtn">FR / EN</button>
+      <button class="cyan" onclick="exportProgress()">Export Progress</button>
+      <button class="danger" onclick="resetAll()">Reset</button>
+    </div>
+  </div>
+
+  <header>
+    <div class="badge">⚡ Personalized Cyber Lab · Linux First · Network Security</div>
+    <h1><span class="gradient">CyberPath</span><br>Muaz Ultimate</h1>
+    <p class="hero-text" data-fr="Simulateur bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité. Objectif : transformer une expérience réseau solide en trajectoire professionnelle orientée sécurité." data-en="Bilingual French/English simulator to strengthen Linux, Python, Cisco networking and cybersecurity. Goal: turn strong network experience into a professional security-oriented path.">
+      Simulateur bilingue français/anglais pour renforcer Linux, Python, réseau Cisco et cybersécurité. Objectif : transformer une expérience réseau solide en trajectoire professionnelle orientée sécurité.
+    </p>
+    <div class="hero-actions">
+      <button class="primary" onclick="showPanelById('linux')">Start Linux Lab</button>
+      <button class="cyan" onclick="showPanelById('terminal')">Open Terminal</button>
+      <button class="violet" onclick="showPanelById('scenario')">Cyber Scenario</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="dashboard">
+      <div class="stat"><strong id="progress">0%</strong><span data-fr="Progression" data-en="Progress">Progression</span></div>
+      <div class="stat"><strong id="score">0</strong><span data-fr="Bonnes réponses" data-en="Correct answers">Bonnes réponses</span></div>
+      <div class="stat"><strong id="errors">0</strong><span data-fr="Erreurs" data-en="Errors">Erreurs</span></div>
+      <div class="stat"><strong id="streak">0</strong><span data-fr="Série" data-en="Streak">Série</span></div>
+      <div class="stat"><strong id="level">START</strong><span data-fr="Niveau cyber" data-en="Cyber level">Niveau cyber</span></div>
+      <div class="stat"><strong id="timeSpent">0m</strong><span data-fr="Temps estimé" data-en="Estimated time">Temps estimé</span></div>
+    </section>
+
+    <nav id="mainNav">
+      <button class="active" onclick="showPanel('home',this)">🏠 Home</button>
+      <button onclick="showPanel('linux',this)">🐧 Linux</button>
+      <button onclick="showPanel('terminal',this)">💻 Terminal</button>
+      <button onclick="showPanel('network',this)">🌐 Cisco / Network</button>
+      <button onclick="showPanel('python',this)">🐍 Python</button>
+      <button onclick="showPanel('cyber',this)">🔐 Cyber Quiz</button>
+      <button onclick="showPanel('scenario',this)">🚨 Attack / Defense</button>
+      <button onclick="showPanel('topology',this)">🛰️ Topology</button>
+      <button onclick="showPanel('interview',this)">🎙️ Interview</button>
+      <button onclick="showPanel('flashcards',this)">⚡ Flashcards</button>
+      <button onclick="showPanel('mistakes',this)">❌ Mistakes</button>
+      <button onclick="showPanel('roadmap',this)">🧭 Roadmap</button>
+    </nav>
+
+    <section id="home" class="panel active">
+      <h2 class="title">🚀 CyberPath-Muaz Ultimate</h2>
+      <p class="subtitle" data-fr="Ce simulateur n’est pas une formation de débutant : c’est un laboratoire personnalisé pour un profil réseau qui veut progresser vers Linux, Python et la cybersécurité." data-en="This simulator is not beginner training: it is a personalized lab for a network profile moving toward Linux, Python and cybersecurity.">
+        Ce simulateur n’est pas une formation de débutant : c’est un laboratoire personnalisé pour un profil réseau qui veut progresser vers Linux, Python et la cybersécurité.
+      </p>
+
+      <div class="grid">
+        <div class="card"><small>Priority 01</small><h3>🐧 Linux Mastery</h3><p data-fr="Commandes, permissions, fichiers, logs, services, réseau Linux et réflexes cybersécurité." data-en="Commands, permissions, files, logs, services, Linux networking and cybersecurity reflexes.">Commandes, permissions, fichiers, logs, services, réseau Linux et réflexes cybersécurité.</p></div>
+        <div class="card"><small>Priority 02</small><h3>🌐 Network / Cisco</h3><p data-fr="IP, VLAN, DNS, DHCP, routage, firewall, VPN et dépannage réseau." data-en="IP, VLAN, DNS, DHCP, routing, firewall, VPN and network troubleshooting.">IP, VLAN, DNS, DHCP, routage, firewall, VPN et dépannage réseau.</p></div>
+        <div class="card"><small>Priority 03</small><h3>🐍 Python Automation</h3><p data-fr="Scripts utiles pour automatiser, analyser des logs et comprendre la logique cyber." data-en="Useful scripts to automate, analyze logs and understand cyber logic.">Scripts utiles pour automatiser, analyser des logs et comprendre la logique cyber.</p></div>
+        <div class="card"><small>Priority 04</small><h3>🔐 Cyber Defense</h3><p data-fr="Phishing, brute force, analyse d’incident, protection SSH, pare-feu et bonnes pratiques." data-en="Phishing, brute force, incident analysis, SSH protection, firewall and best practices.">Phishing, brute force, analyse d’incident, protection SSH, pare-feu et bonnes pratiques.</p></div>
+      </div>
+
+      <br>
+      <div class="language-box">
+        <div class="card frbox"><h3>🇫🇷 Objectif français</h3><p>Comprendre et expliquer les notions techniques en français pour les rendez-vous, formations et recruteurs.</p></div>
+        <div class="card enbox"><h3>🇬🇧 English objective</h3><p>Keep technical precision in English, the main language for IT, Cisco, Linux, Python and cybersecurity.</p></div>
+      </div>
+    </section>
+
+    <section id="linux" class="panel">
+      <h2 class="title">🐧 Linux Master Lab</h2>
+      <p class="subtitle">Linux est prioritaire : commandes, fichiers, permissions, services, logs et réseau.</p>
+      <div id="linuxQuiz" class="quiz"></div>
+    </section>
+
+    <section id="terminal" class="panel">
+      <h2 class="title">💻 Advanced Linux Terminal Simulator</h2>
+      <p class="subtitle">Terminal simulé sans risque. Commandes disponibles : help, pwd, ls, cd, cat, grep, chmod, whoami, ip addr, ping, systemctl, tail, sudo, clear.</p>
+      <div class="split">
+        <div class="terminal">
+          <div class="terminal-top"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><div>muaz@cyberpath:~</div></div>
+          <div class="terminal-screen" id="terminalScreen">Welcome Muaz 👋
+Type "help" to start.
+Try mission: ls → cd logs → ls → tail auth.log → grep Failed auth.log</div>
+          <div class="terminal-input-wrap"><span class="prompt">muaz@cyberpath:~$</span><input id="terminalInput" onkeydown="terminalCommand(event)" autocomplete="off" placeholder="type a Linux command here"></div>
+        </div>
+        <div class="card">
+          <h3>🎯 Terminal Missions</h3>
+          <p><strong>Mission 1:</strong> Find failed SSH attempts in auth.log.</p><br>
+          <p><strong>Mission 2:</strong> Check network interface with <code>ip addr</code>.</p><br>
+          <p><strong>Mission 3:</strong> Understand permissions using <code>chmod</code>.</p><br>
+          <p style="color:var(--green);margin-top:12px;">Every useful command increases progress.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="network" class="panel">
+      <h2 class="title">🌐 Cisco / Network Engineering Lab</h2>
+      <p class="subtitle">Renforcement réseau : IP, VLAN, DNS, DHCP, routage, firewall, VPN et diagnostic.</p>
+      <div id="networkQuiz" class="quiz"></div>
+    </section>
+
+    <section id="python" class="panel">
+      <h2 class="title">🐍 Python Automation Lab</h2>
+      <p class="subtitle">Python pour automatiser et analyser : scripts réseau, logs, fonctions, fichiers.</p>
+      <div class="split">
+        <div id="pythonQuiz" class="quiz"></div>
+        <div class="card">
+          <h3>Mini script example</h3>
+          <div class="codebox"># Simple educational log checker
+failed = 0
+with open("auth.log") as file:
+    for line in file:
+        if "Failed password" in line:
+            failed += 1
+print("Failed attempts:", failed)</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cyber" class="panel">
+      <h2 class="title">🔐 Cybersecurity Fundamentals</h2>
+      <p class="subtitle">Culture cyber défensive : logs, phishing, SSH, firewall, incident response.</p>
+      <div id="cyberQuiz" class="quiz"></div>
+    </section>
+
+    <section id="scenario" class="panel">
+      <h2 class="title">🚨 Attack / Defense Scenario</h2>
+      <p class="subtitle">Simulation d’incident : analyser les logs, identifier le risque, choisir l’action correcte.</p>
+      <div class="scenario-card">
+        <span class="tag">SOC ALERT</span>
+        <h3 style="margin:12px 0;color:var(--cyan);">Multiple SSH failed login attempts detected</h3>
+        <div class="logbox">May 15 10:12:44 linux-server sshd[1822]: Failed password for invalid user admin from 185.77.21.9 port 52241 ssh2
+May 15 10:12:49 linux-server sshd[1823]: Failed password for root from 185.77.21.9 port 52242 ssh2
+May 15 10:13:02 linux-server sshd[1824]: Failed password for test from 185.77.21.9 port 52243 ssh2
+May 15 10:13:20 linux-server sshd[1825]: Accepted password for muaz from 192.168.1.22 port 51011 ssh2</div>
+        <p class="translation"><strong>Question:</strong> What is the best first defensive action?</p>
+        <button class="option" onclick="scenarioAnswer(this,false)">Delete the log file to clean the server</button>
+        <button class="option" onclick="scenarioAnswer(this,true)">Block/suspend suspicious IP, strengthen SSH, review logs</button>
+        <button class="option" onclick="scenarioAnswer(this,false)">Disable all network interfaces permanently</button>
+        <button class="option" onclick="scenarioAnswer(this,false)">Ignore it because one login was accepted</button>
+        <div id="scenarioFeedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <section id="topology" class="panel">
+      <h2 class="title">🛰️ Animated Network Topology</h2>
+      <p class="subtitle">Schéma visuel d’une infrastructure type : Internet → Firewall → Cisco Router → Linux Server → Client.</p>
+      <div class="topology">
+        <div class="packet"></div>
+        <div class="network-map">
+          <div class="node"><div class="icon">🌍</div><strong>Internet</strong><small>External traffic</small></div>
+          <div class="node"><div class="icon">🔥</div><strong>Firewall</strong><small>Filtering / ACL</small></div>
+          <div class="node"><div class="icon">🖧</div><strong>Cisco Router</strong><small>Routing / VLAN</small></div>
+          <div class="node"><div class="icon">🐧</div><strong>Linux Server</strong><small>SSH / Logs / Services</small></div>
+          <div class="node"><div class="icon">👨‍💻</div><strong>Client</strong><small>User workstation</small></div>
+        </div>
+      </div>
+      <br>
+      <div class="grid">
+        <div class="card"><h3>Diagnostic DNS</h3><p>Can the client resolve domain names?</p></div>
+        <div class="card"><h3>Firewall Rule</h3><p>Is SSH exposed to the internet?</p></div>
+        <div class="card"><h3>VLAN Segmentation</h3><p>Are users and servers separated?</p></div>
+      </div>
+    </section>
+
+    <section id="interview" class="panel">
+      <h2 class="title">🎙️ Interview & French / English Training</h2>
+      <p class="subtitle">Préparer son discours professionnel en anglais et en français.</p>
+      <div class="grid">
+        <div class="card frbox"><h3>🇫🇷 Question recruteur</h3><p>Expliquez votre expérience en réseau et votre objectif en cybersécurité.</p></div>
+        <div class="card enbox"><h3>🇬🇧 Recruiter question</h3><p>Explain your network experience and your cybersecurity goal.</p></div>
+      </div>
+      <br>
+      <div class="typing-area">
+        <textarea id="interviewText" placeholder="Write your answer here / Écris ta réponse ici..."></textarea>
+        <br><br>
+        <button class="primary" onclick="evaluateInterview()">Evaluate structure</button>
+        <div id="interviewFeedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <section id="flashcards" class="panel">
+      <h2 class="title">⚡ Bilingual Flashcards</h2>
+      <p class="subtitle">Clique sur les cartes pour retourner et mémoriser.</p>
+      <div class="flash-grid" id="flashGrid"></div>
+    </section>
+
+    <section id="mistakes" class="panel">
+      <h2 class="title">❌ Mistakes Review</h2>
+      <p class="subtitle">Les erreurs sont sauvegardées localement pour réviser intelligemment.</p>
+      <div id="mistakesBox"></div>
+    </section>
+
+    <section id="roadmap" class="panel">
+      <h2 class="title">🧭 30 Days Roadmap</h2>
+      <p class="subtitle">Progression structurée, adaptée à un profil réseau qui veut monter en cybersécurité.</p>
+      <div class="roadmap">
+        <div class="step"><strong>Week 1 · Linux Core:</strong> pwd, ls, cd, cat, grep, tail, chmod, users, permissions, logs.</div>
+        <div class="step"><strong>Week 2 · Network Security:</strong> IP, subnet, DNS, DHCP, VLAN, routing, firewall, VPN, troubleshooting.</div>
+        <div class="step"><strong>Week 3 · Python Automation:</strong> variables, loops, functions, files, log parser, simple network tools.</div>
+        <div class="step"><strong>Week 4 · Cyber Defense:</strong> phishing, SSH hardening, brute force detection, incident response, LinkedIn/interview.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>CyberPath-Muaz Ultimate Edition · Personalized IT Security Learning Simulator · Local offline version</footer>
+
+  <script>
+    const app = {
+      lang:'fr',
+      startTime:Date.now(),
+      state: JSON.parse(localStorage.getItem('cyberpath_muaz_ultimate') || '{"score":0,"errors":0,"answered":0,"streak":0,"mistakes":[],"terminalPoints":0}'),
+      current:{linux:0,network:0,python:0,cyber:0}
+    };
+
+    const quiz = {
+      linux:[
+        {tag:'Linux', q:{en:'Which command lists files and folders?',fr:'Quelle commande liste les fichiers et dossiers ?'}, options:['ls','pwd','mkdir','chmod'], correct:0, exp:{en:'ls lists files and directories.',fr:'ls affiche les fichiers et dossiers.'}},
+        {tag:'Linux', q:{en:'Which command shows the current directory?',fr:'Quelle commande affiche le dossier actuel ?'}, options:['pwd','cat','grep','sudo'], correct:0, exp:{en:'pwd means print working directory.',fr:'pwd signifie afficher le dossier de travail actuel.'}},
+        {tag:'Linux', q:{en:'Which command changes file permissions?',fr:'Quelle commande modifie les permissions d’un fichier ?'}, options:['chmod','tail','ping','cd'], correct:0, exp:{en:'chmod changes permissions.',fr:'chmod modifie les permissions.'}},
+        {tag:'Linux Logs', q:{en:'Which command displays the last lines of a log file?',fr:'Quelle commande affiche les dernières lignes d’un fichier log ?'}, options:['tail','mkdir','whoami','clear'], correct:0, exp:{en:'tail is useful for reading the end of log files.',fr:'tail est utile pour lire la fin des fichiers journaux.'}},
+        {tag:'Linux Network', q:{en:'Which command displays network interfaces on modern Linux?',fr:'Quelle commande affiche les interfaces réseau sur Linux moderne ?'}, options:['ip addr','ls -la','cat /etc/passwd','chmod 777'], correct:0, exp:{en:'ip addr shows network interfaces and IP addresses.',fr:'ip addr affiche les interfaces réseau et adresses IP.'}}
+      ],
+      network:[
+        {tag:'DNS', q:{en:'What does DNS do?',fr:'À quoi sert le DNS ?'}, options:['Translate names to IP addresses','Encrypt disks','Create users','Compile Python'], correct:0, exp:{en:'DNS resolves domain names into IP addresses.',fr:'Le DNS transforme les noms de domaine en adresses IP.'}},
+        {tag:'DHCP', q:{en:'What is DHCP used for?',fr:'À quoi sert DHCP ?'}, options:['Automatically assign IP configuration','Block phishing emails','Delete logs','Create passwords'], correct:0, exp:{en:'DHCP automatically provides IP configuration.',fr:'DHCP fournit automatiquement la configuration IP.'}},
+        {tag:'VLAN', q:{en:'What is a VLAN?',fr:'Qu’est-ce qu’un VLAN ?'}, options:['A logical network segmentation','A Linux password','A Python loop','A web browser'], correct:0, exp:{en:'VLANs separate networks logically.',fr:'Les VLAN séparent les réseaux de manière logique.'}},
+        {tag:'Firewall', q:{en:'What is a firewall used for?',fr:'À quoi sert un pare-feu ?'}, options:['Filter network traffic','Format a server','Create DNS names','Replace Linux'], correct:0, exp:{en:'A firewall filters allowed and blocked traffic.',fr:'Un pare-feu filtre le trafic autorisé et bloqué.'}},
+        {tag:'VPN', q:{en:'What is a VPN mainly used for?',fr:'À quoi sert principalement un VPN ?'}, options:['Secure remote connection','Increase monitor brightness','Delete malware automatically','Create VLAN names'], correct:0, exp:{en:'VPNs create secure tunnels for remote access.',fr:'Les VPN créent des tunnels sécurisés pour l’accès distant.'}}
+      ],
+      python:[
+        {tag:'Python', q:{en:'Which keyword defines a function in Python?',fr:'Quel mot-clé définit une fonction en Python ?'}, options:['def','function','create','func'], correct:0, exp:{en:'Python uses def to define functions.',fr:'Python utilise def pour définir des fonctions.'}},
+        {tag:'Python', q:{en:'Which loop is commonly used to iterate over items?',fr:'Quelle boucle sert souvent à parcourir des éléments ?'}, options:['for','repeat','scan','route'], correct:0, exp:{en:'for loops are used for iteration.',fr:'Les boucles for servent à parcourir des éléments.'}},
+        {tag:'Python Files', q:{en:'Which function opens a file in Python?',fr:'Quelle fonction ouvre un fichier en Python ?'}, options:['open()','readfile()','start()','loadlinux()'], correct:0, exp:{en:'open() is used to open files.',fr:'open() sert à ouvrir des fichiers.'}},
+        {tag:'Cyber Python', q:{en:'Why is Python useful in cybersecurity?',fr:'Pourquoi Python est utile en cybersécurité ?'}, options:['Automation and log analysis','It replaces all firewalls','It removes the need for Linux','It blocks every attack automatically'], correct:0, exp:{en:'Python helps automate tasks and analyze data/logs.',fr:'Python aide à automatiser et analyser des données/logs.'}},
+        {tag:'Python Logic', q:{en:'What is an if statement used for?',fr:'À quoi sert une condition if ?'}, options:['Decision making','Routing packets','Creating VLANs','Changing file ownership only'], correct:0, exp:{en:'if statements make decisions based on conditions.',fr:'if permet de prendre une décision selon une condition.'}}
+      ],
+      cyber:[
+        {tag:'Phishing', q:{en:'What is phishing?',fr:'Qu’est-ce que le phishing ?'}, options:['A social engineering attack','A Cisco protocol','A Linux folder','A Python syntax error'], correct:0, exp:{en:'Phishing tricks users into revealing information.',fr:'Le phishing piège les utilisateurs pour obtenir des informations.'}},
+        {tag:'SSH', q:{en:'What is a common sign of SSH brute force?',fr:'Quel est un signe courant de brute force SSH ?'}, options:['Many failed login attempts','One normal DNS query','A full hard drive only','A successful software update'], correct:0, exp:{en:'Repeated failed logins can indicate brute force.',fr:'Des échecs répétés de connexion peuvent indiquer une attaque brute force.'}},
+        {tag:'Logs', q:{en:'Why are logs important?',fr:'Pourquoi les logs sont importants ?'}, options:['They help investigate events','They decorate the terminal','They replace backups','They stop all attacks'], correct:0, exp:{en:'Logs help understand what happened.',fr:'Les logs aident à comprendre ce qui s’est passé.'}},
+        {tag:'Passwords', q:{en:'What makes a password stronger?',fr:'Qu’est-ce qui rend un mot de passe plus fort ?'}, options:['Length, uniqueness and complexity','Using 123456','Using your birthday','Reusing it everywhere'], correct:0, exp:{en:'Strong passwords are long, unique and hard to guess.',fr:'Un mot de passe fort est long, unique et difficile à deviner.'}},
+        {tag:'Defense', q:{en:'What should you do with suspicious attachments?',fr:'Que faire avec une pièce jointe suspecte ?'}, options:['Do not open; verify first','Open quickly','Forward to everyone','Disable the antivirus'], correct:0, exp:{en:'Verify before opening suspicious attachments.',fr:'Il faut vérifier avant d’ouvrir une pièce jointe suspecte.'}}
+      ]
+    };
+
+    const flashcards = [
+      {front:'ls', back:'List files and folders · Lister fichiers et dossiers'},
+      {front:'grep', back:'Search text patterns inside files · Rechercher du texte dans les fichiers'},
+      {front:'chmod', back:'Change file permissions · Modifier les permissions'},
+      {front:'DNS', back:'Domain Name System: name → IP · nom → IP'},
+      {front:'DHCP', back:'Automatic IP configuration · Configuration IP automatique'},
+      {front:'VLAN', back:'Logical network segmentation · Segmentation réseau logique'},
+      {front:'SSH', back:'Secure Shell remote access · Accès distant sécurisé'},
+      {front:'Python', back:'Automation, scripting, log analysis · Automatisation et analyse'},
+      {front:'Firewall', back:'Filters network traffic · Filtre le trafic réseau'},
+      {front:'Phishing', back:'Social engineering attack · Attaque d’ingénierie sociale'}
+    ];
+
+    const fs = {
+      path:['home','muaz'],
+      files:{
+        '/home/muaz':['linux','python','network','logs','notes.txt'],
+        '/home/muaz/logs':['auth.log','syslog'],
+        '/home/muaz/linux':['permissions.txt','commands.txt'],
+        '/home/muaz/python':['scanner.py','log_parser.py'],
+        '/home/muaz/network':['dns.txt','vlan.txt']
+      },
+      content:{
+        '/home/muaz/notes.txt':'CyberPath notes: Linux first, then Network, Python and Cybersecurity.',
+        '/home/muaz/logs/auth.log':'May 15 10:12 Failed password for root from 185.77.21.9\nMay 15 10:13 Failed password for admin from 185.77.21.9\nMay 15 10:14 Accepted password for muaz from 192.168.1.22',
+        '/home/muaz/logs/syslog':'systemd started ssh.service\nNetworkManager connected eth0\nkernel: firewall rule loaded',
+        '/home/muaz/linux/permissions.txt':'r = read, w = write, x = execute. chmod changes permissions.',
+        '/home/muaz/linux/commands.txt':'pwd, ls, cd, cat, grep, tail, chmod, ip addr, ping, systemctl',
+        '/home/muaz/python/scanner.py':'for host in hosts:\n    print("Checking", host)',
+        '/home/muaz/python/log_parser.py':'with open("auth.log") as f:\n    for line in f:\n        if "Failed" in line:\n            print(line)',
+        '/home/muaz/network/dns.txt':'DNS resolves domain names into IP addresses.',
+        '/home/muaz/network/vlan.txt':'VLANs separate networks logically.'
+      }
+    };
+
+    function t(obj){ return typeof obj === 'string' ? obj : obj[app.lang]; }
+    function save(){ localStorage.setItem('cyberpath_muaz_ultimate', JSON.stringify(app.state)); }
+
+    function updateDashboard(){
+      const progress = Math.min(100, Math.round((app.state.answered + app.state.terminalPoints) / 35 * 100));
+      document.getElementById('progress').textContent = progress + '%';
+      document.getElementById('score').textContent = app.state.score;
+      document.getElementById('errors').textContent = app.state.errors;
+      document.getElementById('streak').textContent = app.state.streak;
+      const minutes = Math.max(0, Math.round((Date.now() - app.startTime)/60000));
+      document.getElementById('timeSpent').textContent = minutes + 'm';
+      let level = 'START';
+      if(app.state.score >= 4) level = 'LINUX';
+      if(app.state.score >= 8) level = 'NETWORK';
+      if(app.state.score >= 12) level = 'CYBER';
+      if(app.state.score >= 18) level = 'SOC READY';
+      document.getElementById('level').textContent = level;
+      save();
+      renderMistakes();
+    }
+
+    function showPanel(id,btn){
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      document.querySelectorAll('#mainNav button').forEach(b=>b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if(btn) btn.classList.add('active');
+    }
+
+    function showPanelById(id){
+      const btn = [...document.querySelectorAll('#mainNav button')].find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${id}'`));
+      showPanel(id, btn);
+      document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function renderQuiz(type){
+      const box = document.getElementById(type+'Quiz');
+      const list = quiz[type];
+      const i = app.current[type] % list.length;
+      const item = list[i];
+      box.innerHTML = `
+        <div class="question-meta"><span class="tag">${item.tag}</span><strong>${i+1} / ${list.length}</strong></div>
+        <div class="progress"><div class="bar" style="width:${(i/list.length)*100}%"></div></div>
+        <h3 class="question-title">${item.q.en}</h3>
+        <div class="translation">🇫🇷 ${item.q.fr}</div>
+        ${item.options.map((op,idx)=>`<button class="option" onclick="answerQuiz('${type}',${idx})">${op}</button>`).join('')}
+        <div id="${type}Feedback" class="feedback"></div>
+      `;
+    }
+
+    function answerQuiz(type,index){
+      const list = quiz[type];
+      const item = list[app.current[type] % list.length];
+      const box = document.getElementById(type+'Quiz');
+      const buttons = box.querySelectorAll('.option');
+      buttons.forEach((b,i)=>{
+        b.disabled = true;
+        if(i === item.correct) b.classList.add('correct');
+        if(i === index && index !== item.correct) b.classList.add('wrong');
+      });
+      const fb = document.getElementById(type+'Feedback');
+      fb.classList.add('show');
+      if(index === item.correct){
+        app.state.score++;
+        app.state.streak++;
+        fb.classList.add('good');
+        fb.innerHTML = `✅ Correct<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
+      }else{
+        app.state.errors++;
+        app.state.streak = 0;
+        fb.classList.add('bad');
+        fb.innerHTML = `❌ Review<br>${item.exp.en}<br><span style="color:#94a3b8">${item.exp.fr}</span>`;
+        app.state.mistakes.push({module:type, question:item.q.en, questionFr:item.q.fr, correct:item.options[item.correct], exp:item.exp.en});
+      }
+      app.state.answered++;
+      app.current[type]++;
+      updateDashboard();
+      setTimeout(()=>renderQuiz(type),1900);
+    }
+
+    function currentPath(){ return '/' + fs.path.join('/'); }
+    function resolvePath(p){
+      if(!p || p === '.') return currentPath();
+      if(p === '~') return '/home/muaz';
+      if(p.startsWith('/')) return p;
+      if(p === '..') return '/' + fs.path.slice(0,-1).join('/');
+      return currentPath() + '/' + p;
+    }
+
+    function terminalCommand(event){
+      if(event.key !== 'Enter') return;
+      const input = document.getElementById('terminalInput');
+      const screen = document.getElementById('terminalScreen');
+      const cmdLine = input.value.trim();
+      input.value = '';
+      if(!cmdLine) return;
+      const parts = cmdLine.split(' ');
+      const cmd = parts[0];
+      const arg = parts.slice(1).join(' ');
+      let output = '';
+
+      if(cmd === 'help') output = 'Commands: pwd, ls, cd, cat, grep, tail, chmod, whoami, ip addr, ping, systemctl, sudo, clear';
+      else if(cmd === 'pwd') output = currentPath();
+      else if(cmd === 'ls') output = (fs.files[currentPath()] || ['No files']).join('  ');
+      else if(cmd === 'cd'){
+        const target = resolvePath(arg || '~');
+        if(fs.files[target]){ fs.path = target.split('/').filter(Boolean); output = ''; }
+        else output = 'cd: no such directory: ' + arg;
+      }
+      else if(cmd === 'cat'){
+        const target = resolvePath(arg);
+        output = fs.content[target] || 'cat: file not found: ' + arg;
+      }
+      else if(cmd === 'tail'){
+        const file = parts[parts.length-1];
+        const target = resolvePath(file);
+        output = fs.content[target] || 'tail: file not found: ' + file;
+      }
+      else if(cmd === 'grep'){
+        const pattern = parts[1];
+        const file = parts[2];
+        const target = resolvePath(file);
+        const content = fs.content[target];
+        output = content ? content.split('\n').filter(l=>l.toLowerCase().includes((pattern||'').toLowerCase())).join('\n') || 'No match' : 'grep: file not found';
+        if(pattern && pattern.toLowerCase() === 'failed') awardTerminalPoint();
+      }
+      else if(cmd === 'chmod') output = 'Permissions changed (simulation). Example: chmod 600 file.txt';
+      else if(cmd === 'whoami') output = 'muaz';
+      else if(cmd === 'ip' && parts[1] === 'addr') { output = 'eth0: inet 192.168.1.22/24\nlo: inet 127.0.0.1/8'; awardTerminalPoint(); }
+      else if(cmd === 'ping') output = `PING ${arg || '8.8.8.8'}: 64 bytes from ${arg || '8.8.8.8'} icmp_seq=1 ttl=57 time=18.4 ms`;
+      else if(cmd === 'systemctl') output = 'ssh.service active (running)\nNetworkManager.service active (running)';
+      else if(cmd === 'sudo') output = 'sudo: educational simulator only. Good reflex: use sudo carefully.';
+      else if(cmd === 'clear'){ screen.textContent = ''; return; }
+      else output = `Command not found: ${cmd}. Type help.`;
+
+      screen.textContent += `\n\nmuaz@cyberpath:${currentPath()}$ ${cmdLine}\n${output}`;
+      screen.scrollTop = screen.scrollHeight;
+    }
+
+    function awardTerminalPoint(){
+      app.state.terminalPoints = Math.min((app.state.terminalPoints || 0) + 1, 8);
+      updateDashboard();
+    }
+
+    function scenarioAnswer(btn,isCorrect){
+      document.querySelectorAll('#scenario .option').forEach(b=>b.disabled=true);
+      const fb = document.getElementById('scenarioFeedback');
+      fb.classList.add('show');
+      if(isCorrect){
+        btn.classList.add('correct');
+        fb.classList.add('good');
+        fb.innerHTML = '✅ Correct. First defensive action: identify source, block suspicious IP if needed, harden SSH, keep logs, and investigate.';
+        app.state.score += 2;
+        app.state.streak++;
+      }else{
+        btn.classList.add('wrong');
+        fb.classList.add('bad');
+        fb.innerHTML = '❌ Not the best action. Never delete logs during investigation. Preserve evidence and reduce exposure.';
+        app.state.errors++;
+        app.state.streak=0;
+        app.state.mistakes.push({module:'scenario',question:'SSH brute force scenario',correct:'Block/suspend suspicious IP, strengthen SSH, review logs',exp:'Preserve logs and reduce exposure.'});
+      }
+      app.state.answered++;
+      updateDashboard();
+    }
+
+    function renderFlashcards(){
+      document.getElementById('flashGrid').innerHTML = flashcards.map((c,i)=>`
+        <div class="flash" onclick="this.classList.toggle('flipped')">
+          <div class="flash-inner">
+            <div class="flash-front"><strong>${c.front}</strong><small>Click to flip</small></div>
+            <div class="flash-back"><strong>${c.front}</strong><small>${c.back}</small></div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderMistakes(){
+      const box = document.getElementById('mistakesBox');
+      if(!box) return;
+      if(!app.state.mistakes.length){
+        box.innerHTML = '<div class="card"><h3>✅ No mistakes yet</h3><p>Errors will appear here for smart revision.</p></div>';
+        return;
+      }
+      box.innerHTML = app.state.mistakes.slice().reverse().map(m=>`
+        <div class="mistake-card">
+          <strong>Module:</strong> ${m.module}<br>
+          <strong>Question:</strong> ${m.question}<br>
+          ${m.questionFr ? `<strong>FR:</strong> ${m.questionFr}<br>` : ''}
+          <strong>Correct:</strong> ${m.correct}<br>
+          <strong>Explanation:</strong> ${m.exp}
+        </div>
+      `).join('');
+    }
+
+    function evaluateInterview(){
+      const text = document.getElementById('interviewText').value.trim();
+      const fb = document.getElementById('interviewFeedback');
+      let score = 0;
+      const tips = [];
+      if(text.length > 80) score += 25; else tips.push('Add more detail about experience.');
+      if(/network|réseau|cisco|linux|python|cyber/i.test(text)) score += 35; else tips.push('Mention network/Cisco/Linux/Python/Cybersecurity.');
+      if(/goal|objectif|security|sécurité|cyber/i.test(text)) score += 25; else tips.push('Explain the cybersecurity goal.');
+      if(/[.!?]/.test(text)) score += 15; else tips.push('Use clear sentence punctuation.');
+      fb.classList.add('show');
+      fb.classList.toggle('good', score >= 70);
+      fb.classList.toggle('bad', score < 70);
+      fb.innerHTML = `<strong>Structure score: ${score}/100</strong><br>${tips.length ? tips.join('<br>') : 'Strong structure. Clear and professional.'}`;
+    }
+
+    function toggleLang(){
+      app.lang = app.lang === 'fr' ? 'en' : 'fr';
+      document.documentElement.lang = app.lang;
+      document.getElementById('langBtn').textContent = app.lang === 'fr' ? 'FR / EN' : 'EN / FR';
+      document.querySelectorAll('[data-fr][data-en]').forEach(el=>{ el.textContent = el.dataset[app.lang]; });
+    }
+
+    function exportProgress(){
+      const text = `CyberPath-Muaz Progress\nScore: ${app.state.score}\nErrors: ${app.state.errors}\nAnswered: ${app.state.answered}\nStreak: ${app.state.streak}\nTerminal Points: ${app.state.terminalPoints || 0}\nMistakes: ${app.state.mistakes.length}`;
+      const blob = new Blob([text], {type:'text/plain'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'cyberpath-muaz-progress.txt';
+      a.click();
+    }
+
+    function resetAll(){
+      if(!confirm('Reset all progress?')) return;
+      localStorage.removeItem('cyberpath_muaz_ultimate');
+      location.reload();
+    }
+
+    ['linux','network','python','cyber'].forEach(renderQuiz);
+    renderFlashcards();
+    renderMistakes();
+    updateDashboard();
+    setInterval(updateDashboard, 60000);
+  </script>
+</body>
+</html>
